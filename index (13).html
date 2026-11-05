@@ -1,0 +1,2486 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f7f1e8">
+<meta name="description" content="مَدارِك: مجلد لكل مادة، ومحاضراتك للقراءة والتعليق، وعدّاد للاختبار، وشرح واختبارات ونقاط ضعف بالذكاء الاصطناعي.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='190 600 350 385'%3E%3Crect x='218' y='606' width='193' height='190' rx='14' fill='%23e8e3dc'/%3E%3Crect x='348' y='815' width='175' height='162' rx='14' fill='%23e6e1da'/%3E%3Crect x='358' y='642' width='174' height='171' rx='18' fill='%23cfe3c6'/%3E%3Crect x='193' y='768' width='187' height='178' rx='16' fill='%23fffdfa' stroke='%23d9cfc2' stroke-width='3'/%3E%3Ccircle cx='285' cy='866' r='14' fill='%23222'/%3E%3Ccircle cx='443' cy='748' r='14' fill='%2344704f'/%3E%3Ccircle cx='442' cy='882' r='14' fill='%23c9735b'/%3E%3C/svg%3E">
+<title>مَدارِك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>html{background:#f7f1e8}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* مَدارِك: ورق كريمي، حبر بني، لمسات من الأخضر الفاتح والطين. خط الرقعة للعناوين، ونسخ واضح للقراءة. */
+:root {
+  --bg: #f7f1e8;
+  --surface: #fffdf9;
+  --surface-2: #f1e8da;
+  --raised: #e9dcc7;
+  --line: rgba(94, 62, 36, .13);
+  --line-2: rgba(94, 62, 36, .26);
+  --fg: #3b2a1c;
+  --fg-2: #6a5443;
+  --fg-3: #9a8878;
+  --white: #7a4a2b;          /* لون التمييز الرئيسي (بني) */
+  --acc-2: #5e3720;
+  --on-white: #fffaf1;       /* نص فوق لون التمييز */
+  --sage: #d6e6cd;
+  --sage-d: #4f7a58;
+  --clay: #c9735b;
+  --sand: #ead9bf;
+  --ok: #3d7a50;
+  --ok-bg: rgba(61, 122, 80, .09);
+  --bad: #b3463a;
+  --bad-bg: rgba(179, 70, 58, .08);
+  --warn: #946416;
+  --display: "Aref Ruqaa", "Amiri", "IBM Plex Sans Arabic", serif;
+  --latin: "IBM Plex Sans Arabic", Georgia, serif;
+  --body: "IBM Plex Sans Arabic", Tahoma, system-ui, sans-serif;
+  --mono: "IBM Plex Sans Arabic", ui-monospace, Menlo, monospace;
+  --shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 14px 34px -22px rgba(94, 62, 36, .45);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.85;
+  -webkit-text-size-adjust: 100%;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+h1, h2, h3, h4 { font-family: var(--display); margin: 0; text-wrap: balance; line-height: 1.45; font-weight: 700; color: var(--acc-2); }
+p { margin: 0; }
+
+/* الهيكل: شريط جانبي على الشاشات الواسعة، وشريط سفلي على الجوال */
+.shell { display: grid; grid-template-columns: 250px minmax(0, 1fr); min-height: 100vh; }
+.rail {
+  position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 22px;
+  padding: 26px 18px; background: var(--surface-2); border-inline-end: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 12px; background: none; border: 0; padding: 0; color: var(--acc-2); text-align: start; }
+.brand svg { flex: none; width: 54px; height: 54px; }
+.brand span { font-family: var(--display); font-weight: 700; font-size: 2.1rem; line-height: 1.1; }
+.brand small { display: block; font-family: var(--body); font-size: 12.5px; font-weight: 400; color: var(--fg-2); letter-spacing: 0; }
+.rail nav { display: grid; gap: 6px; }
+.tab {
+  display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 14px; border: 1px solid transparent;
+  background: none; color: var(--fg-2); font-weight: 500; font-size: 16px; text-align: start;
+}
+.tab svg { flex: none; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tab:hover { background: rgba(122,74,43,.07); color: var(--fg); }
+.tab[aria-selected="true"] { background: var(--white); color: var(--on-white); box-shadow: 0 10px 22px -14px rgba(94,55,32,.8); }
+.rail .echip { margin-top: auto; }
+.echip {
+  display: none; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--line-2); border-radius: 16px; background: var(--surface);
+  color: var(--fg); text-align: start; font-size: 13.5px; line-height: 1.5;
+}
+.echip.on { display: flex; }
+.echip b { font-family: var(--display); font-size: 2rem; line-height: 1; color: var(--clay); font-variant-numeric: lining-nums; }
+.echip span { display: grid; }
+.echip small { color: var(--fg-3); font-size: 12px; }
+.mbar { display: none; }
+.bnav { display: none; }
+.col { min-width: 0; padding: 0 clamp(16px, 4vw, 48px) 90px; max-width: 1000px; width: 100%; margin-inline: auto; }
+
+@media (max-width: 860px) {
+  .shell { display: block; }
+  .rail { display: none; }
+  .mbar {
+    position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px 16px; margin-inline: -16px; background: rgba(247,241,232,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+  }
+  .mbar .brand svg { width: 38px; height: 38px; }
+  .mbar .brand span { font-size: 1.6rem; }
+  .mbar .brand small { display: none; }
+  .bnav {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(5, 1fr);
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); background: rgba(255,253,249,.96); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--line-2);
+  }
+  .bnav .tab { flex-direction: column; gap: 2px; padding: 7px 2px; font-size: 12px; justify-content: center; text-align: center; border-radius: 12px; }
+  .bnav .tab svg { width: 23px; height: 23px; }
+  .bnav .tab[aria-selected="true"] { box-shadow: none; }
+  .col { padding-bottom: 110px; }
+}
+
+.banner { margin-top: 16px; padding: 12px 18px; border: 1px solid var(--line-2); border-radius: 12px; background: var(--surface-2); color: var(--warn); font-size: 14px; }
+
+/* عام */
+.tag { font: 500 12px/1 var(--body); color: var(--fg-3); display: inline-flex; align-items: center; gap: 8px; letter-spacing: 0; }
+.view { padding-top: 30px; }
+.vh { display: grid; gap: 8px; margin-bottom: 24px; max-width: 62ch; }
+.vh h2 { font-size: clamp(2.2rem, 7vw, 3.2rem); line-height: 1.3; text-align: right; }
+.vh .sub { color: var(--fg-2); font-size: 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
+.stack { display: grid; gap: 16px; }
+.row { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; }
+.row > * { min-width: 0; }
+.field { display: grid; gap: 6px; flex: 1 1 160px; }
+.field > span, .lbl { font-size: 13.5px; color: var(--fg-2); }
+input[type="text"], input[type="date"], input[type="number"], select, textarea {
+  width: 100%; background: #fffefb; border: 1px solid var(--line-2); border-radius: 12px;
+  padding: 11px 14px; color: var(--fg); line-height: 1.6; transition: border-color .15s, box-shadow .15s;
+}
+input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--white); box-shadow: 0 0 0 4px rgba(122,74,43,.12); }
+textarea { resize: vertical; min-height: 88px; }
+input::placeholder, textarea::placeholder { color: var(--fg-3); }
+select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--fg-2) 50%), linear-gradient(135deg, var(--fg-2) 50%, transparent 50%); background-position: 16px 55%, 22px 55%; background-size: 6px 6px; background-repeat: no-repeat; padding-inline-start: 40px; }
+select option { background: #fffdf9; color: var(--fg); }
+input:disabled, textarea:disabled { opacity: .7; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+  background: var(--white); color: var(--on-white); border: 1px solid var(--white);
+  font-weight: 600; padding: 10px 24px; border-radius: 12px;
+  box-shadow: 0 10px 20px -14px rgba(94,55,32,.9);
+  transition: transform .15s, background .15s, box-shadow .15s;
+}
+.btn:hover:not(:disabled) { background: var(--acc-2); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.ghost { background: transparent; color: var(--acc-2); border-color: var(--line-2); box-shadow: none; font-weight: 500; }
+.btn.ghost:hover:not(:disabled) { background: rgba(122,74,43,.07); border-color: var(--white); }
+.btn.sm { padding: 6px 16px; font-size: 14px; border-radius: 10px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.status { font-size: 14px; color: var(--fg-2); min-height: 1.5em; }
+.status[data-kind="err"] { color: var(--bad); }
+.status[data-kind="ok"] { color: var(--ok); }
+.checks { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.checks label { display: inline-flex; align-items: center; gap: 9px; font-size: 15px; }
+.checks input { accent-color: var(--white); width: 16px; height: 16px; }
+
+.drop {
+  display: grid; gap: 4px; justify-items: start; padding: 20px; border: 1.5px dashed var(--line-2); border-radius: 16px;
+  background: var(--surface-2); cursor: pointer; transition: border-color .15s, background .15s;
+}
+.drop:hover, .drop.over { border-color: var(--white); background: #f5ecdd; }
+.drop strong { font-family: var(--display); font-weight: 700; font-size: 1.3rem; color: var(--acc-2); }
+.drop small { color: var(--fg-2); font-size: 13px; }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.drop:focus-within { outline: 2px solid var(--white); outline-offset: 3px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 4px 6px 4px 14px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--surface-2); font-size: 14px; }
+.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.chip small { color: var(--fg-3); }
+.chip button { background: none; border: 0; color: var(--fg-2); width: 24px; height: 24px; border-radius: 50%; line-height: 1; font-size: 18px; }
+.chip button:hover { background: var(--line-2); color: var(--fg); }
+.chip.err { border-color: var(--bad); color: var(--bad); }
+
+/* الرئيسية: المجلدات */
+.welcome { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center; padding: 8px 0 22px; }
+.welcome h1 { font-size: clamp(2.6rem, 9vw, 4rem); line-height: 1.2; }
+.welcome p { color: var(--fg-2); max-width: 48ch; }
+.welcome svg { width: clamp(84px, 18vw, 130px); height: auto; }
+.sech { font-size: 1.55rem; margin: 26px 0 12px; display: flex; align-items: center; gap: 10px; }
+.sech::after { content: ""; flex: 1; height: 1px; background: var(--line-2); }
+.folders { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 235px), 1fr)); gap: 22px 16px; padding-top: 14px; }
+.folder {
+  --fc: var(--sage); position: relative; display: grid; gap: 8px; align-content: start; text-align: start; min-height: 168px;
+  padding: 18px 18px 16px; border: 1px solid rgba(94,62,36,.18); border-radius: 6px 20px 20px 20px; background: var(--fc); color: var(--fg);
+  box-shadow: var(--shadow); transition: transform .18s;
+}
+.folder::before { content: ""; position: absolute; top: -13px; inset-inline-start: -1px; width: 88px; height: 14px; border: 1px solid rgba(94,62,36,.18); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--fc); }
+.folder:hover { transform: translateY(-3px); }
+.folder h3 { font-size: 1.7rem; line-height: 1.3; color: var(--acc-2); overflow-wrap: anywhere; }
+.folder .fm { font-size: 13.5px; color: var(--fg-2); }
+.folder .fx { display: flex; justify-content: space-between; align-items: baseline; font-size: 13.5px; }
+.folder .fx b { font-family: var(--display); font-size: 1.5rem; line-height: 1; color: var(--clay); }
+.folder .bar { background: rgba(94,62,36,.16); }
+.f0 { --fc: #d6e6cd; } .f1 { --fc: #f0d8c9; } .f2 { --fc: #ead9bf; } .f3 { --fc: #d7e0ea; } .f4 { --fc: #e6d5e4; }
+.folder.add { background: transparent; border: 1.5px dashed var(--line-2); box-shadow: none; place-content: center; justify-items: center; text-align: center; color: var(--fg-2); }
+.folder.add::before { display: none; }
+.folder.add b { font-family: var(--display); font-size: 1.5rem; color: var(--acc-2); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.tile { display: grid; gap: 6px; justify-items: start; text-align: start; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
+.tile svg { width: 26px; height: 26px; fill: none; stroke: var(--white); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tile b { font-family: var(--display); font-size: 1.3rem; color: var(--acc-2); }
+.tile span { font-size: 13.5px; color: var(--fg-2); line-height: 1.6; }
+.tile:hover { border-color: var(--white); }
+.fine { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--fg-3); font-size: 13px; max-width: 70ch; }
+
+/* مخرجات Markdown */
+.md { overflow-wrap: anywhere; }
+.md > * + * { margin-top: .8em; }
+.md h2, .md h3, .md h4, .md h5 { margin-top: 1.3em; }
+.md h2 { font-size: 1.7rem; } .md h3 { font-size: 1.45rem; } .md h4, .md h5 { font-size: 1.2rem; }
+.md ul, .md ol { padding-inline-start: 1.4em; margin-block: .5em; }
+.md li + li { margin-top: .3em; }
+.md code { font-family: ui-monospace, Menlo, monospace; font-size: .88em; background: var(--surface-2); padding: 1px 6px; border-radius: 6px; direction: ltr; unicode-bidi: isolate; }
+.md pre { background: #2f2218; color: #f4e9d8; border-radius: 12px; padding: 14px 16px; overflow-x: auto; direction: ltr; text-align: left; }
+.md pre code { background: none; padding: 0; color: inherit; }
+.md hr { border: 0; border-top: 1px solid var(--line); margin-block: 1.2em; }
+.md strong { color: var(--acc-2); font-weight: 600; }
+
+/* الاختبار */
+.qcard { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; display: grid; gap: 14px; box-shadow: var(--shadow); }
+.qmeta { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.qmeta .tag { padding: 2px 12px; border-radius: 999px; background: var(--surface-2); color: var(--fg-2); }
+.qn { font-size: 13px; color: var(--fg-3); }
+.qcard h3 { font-family: var(--body); font-size: 1.1rem; font-weight: 600; line-height: 1.8; color: var(--fg); }
+.opts { display: grid; gap: 10px; }
+.opt { position: relative; display: flex; align-items: flex-start; gap: 14px; padding: 12px 16px; border: 1px solid var(--line-2); border-radius: 14px; cursor: pointer; background: #fffefb; transition: border-color .12s, background .12s; }
+.opt:hover { border-color: var(--white); }
+.opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.opt .dot { flex: none; width: 18px; height: 18px; margin-top: 6px; border-radius: 50%; border: 2px solid var(--fg-3); }
+.opt input:checked + .dot { background: var(--white); border-color: var(--white); box-shadow: inset 0 0 0 3px #fffefb; }
+.opt:has(input:checked) { border-color: var(--white); background: #f8efe2; }
+.opt:has(input:focus-visible) { outline: 2px solid var(--white); outline-offset: 3px; }
+.opt.ok { border-color: var(--ok); background: var(--ok-bg); }
+.opt.bad { border-color: var(--bad); background: var(--bad-bg); }
+.opts.locked .opt { cursor: default; }
+.qfb { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 8px; font-size: 15px; }
+.qfb .verdict { font-weight: 600; }
+.qfb .verdict.ok { color: var(--ok); } .qfb .verdict.bad { color: var(--bad); } .qfb .verdict.mid { color: var(--warn); }
+.qfb .k { color: var(--fg-3); font-size: 13px; }
+.qfoot { position: sticky; bottom: 62px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border: 1px solid var(--line-2); border-radius: 16px; background: rgba(255,253,249,.96); box-shadow: var(--shadow); }
+@media (min-width: 861px) { .qfoot { bottom: 12px; } }
+.result { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; padding: 26px; background: var(--sage); color: var(--fg); border: 1px solid rgba(94,62,36,.18); border-radius: 20px; }
+.result .score { font: 700 clamp(3rem, 11vw, 4.6rem)/1 var(--display); color: var(--acc-2); direction: ltr; }
+.result p { color: var(--fg-2); max-width: 38ch; }
+.result .actions { margin-inline-start: auto; }
+#q-area { display: grid; gap: 16px; margin-top: 28px; }
+
+/* المحادثة */
+.chatbox { display: grid; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+.chatbar { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+.msgs { display: flex; flex-direction: column; gap: 14px; padding: 20px 18px; min-height: 320px; }
+.msg { max-width: min(100%, 680px); padding: 12px 18px; border-radius: 18px; }
+.msg.user { align-self: flex-start; background: var(--white); color: var(--on-white); white-space: pre-wrap; overflow-wrap: anywhere; border-end-start-radius: 4px; }
+.msg.assistant { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); width: 100%; max-width: 100%; border-end-start-radius: 4px; }
+.msg.assistant.wait { color: var(--fg-3); }
+.empty { color: var(--fg-2); display: grid; gap: 14px; }
+.sugg { display: flex; flex-wrap: wrap; gap: 10px; }
+.sugg button { background: var(--surface); border: 1px solid var(--line-2); border-radius: 999px; padding: 7px 16px; font-size: 14px; color: var(--fg-2); transition: border-color .15s, color .15s, background .15s; }
+.sugg button:hover { border-color: var(--white); color: var(--acc-2); background: #f8efe2; }
+.composer { display: grid; gap: 12px; padding: 14px 18px 18px; border-top: 1px solid var(--line); }
+.composer .line { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
+.composer textarea { flex: 1 1 220px; min-height: 54px; }
+.attach-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-2); border-radius: 12px; padding: 9px 16px; font-size: 14px; color: var(--fg-2); cursor: pointer; transition: border-color .15s, color .15s; }
+.attach-btn:hover { border-color: var(--white); color: var(--acc-2); }
+.attach-btn input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.attach-btn:focus-within { outline: 2px solid var(--white); outline-offset: 3px; }
+
+.seg { display: inline-flex; padding: 4px; border: 1px solid var(--line-2); border-radius: 14px; background: var(--surface-2); flex-wrap: wrap; gap: 2px; }
+.seg button { background: none; border: 0; padding: 7px 16px; color: var(--fg-2); font-size: 15px; border-radius: 10px; transition: color .15s; }
+.seg button:hover { color: var(--fg); }
+.seg button[aria-pressed="true"], .seg button[aria-selected="true"] { background: var(--white); color: var(--on-white); font-weight: 600; }
+.outcard { margin-top: 24px; display: grid; gap: 14px; }
+.outcard .md { padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
+.summary { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); display: grid; gap: 14px; box-shadow: var(--shadow); }
+.bar { height: 6px; background: rgba(94,62,36,.12); border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--sage-d); width: 0; transition: width .25s; border-radius: 3px; }
+.prog { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 14px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.days { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; margin-top: 16px; }
+.day { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.day.today { border-color: var(--white); box-shadow: 0 0 0 3px rgba(122,74,43,.12); }
+.day.past { opacity: .55; }
+.day.rest { background: transparent; border-style: dashed; color: var(--fg-3); }
+.dh { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.dh b { font-family: var(--display); font-weight: 700; font-size: 1.2rem; color: var(--acc-2); }
+.dtag { font-size: 12px; padding: 1px 12px; border-radius: 999px; background: var(--clay); color: #fff; font-weight: 600; white-space: nowrap; }
+.dsub { color: var(--fg-2); font-size: 14px; }
+.task { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; line-height: 1.65; }
+.task.done .t { text-decoration: line-through; color: var(--fg-3); }
+.task .sj { font-weight: 600; }
+.task .t { min-width: 0; overflow-wrap: anywhere; }
+
+/* الرسوم البيانية */
+.chartbox { margin-block: 12px; padding: 14px 14px 10px; border: 1px solid var(--line); border-radius: 14px; background: #fffefb; direction: ltr; }
+.chartbox.wait { color: var(--fg-3); direction: rtl; text-align: center; padding: 22px; }
+.chartbox text { fill: var(--fg-2); font: 17px var(--body); }
+.chartbox .ct { fill: var(--fg); font-size: 21px; font-weight: 600; }
+.chartbox .al { fill: var(--fg-3); font-size: 16px; }
+.chartbox .vl { fill: var(--fg); font-size: 15px; }
+.chartbox .pl { fill: #fff; font-weight: 600; font-size: 16px; }
+.chartbox .grid { stroke: var(--line); stroke-width: 1; }
+.chartbox .axis { stroke: var(--line-2); stroke-width: 1.2; }
+.chartbox .zero { stroke: var(--fg-3); stroke-width: 1; stroke-dasharray: 4 4; opacity: .7; }
+.chartbox .lg { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: center; margin-top: 8px; font-size: 13px; color: var(--fg-2); direction: rtl; }
+.chartbox .lg span { unicode-bidi: plaintext; }
+.chartbox .lg i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-inline-end: 6px; }
+
+/* المجلد والمحاضرات */
+.crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14.5px; color: var(--fg-2); margin-bottom: 14px; }
+.crumbs button { background: none; border: 0; padding: 0; color: var(--white); text-decoration: underline; text-underline-offset: 4px; }
+.fhead { --fc: var(--sage); position: relative; display: grid; gap: 12px; padding: 22px; margin-top: 12px; border: 1px solid rgba(94,62,36,.18); border-radius: 6px 22px 22px 22px; background: var(--fc); box-shadow: var(--shadow); }
+.fhead::before { content: ""; position: absolute; top: -13px; inset-inline-start: -1px; width: 110px; height: 14px; border: 1px solid rgba(94,62,36,.18); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--fc); }
+.fhead h2 { font-size: clamp(2rem, 7vw, 2.8rem); }
+.fhead .big { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.fhead .big b { font: 700 clamp(3.2rem, 14vw, 5rem)/1 var(--display); color: var(--clay); font-variant-numeric: lining-nums tabular-nums; }
+.fhead .big span { color: var(--fg-2); font-size: 1.05rem; }
+.fhead .bar { background: rgba(94,62,36,.16); }
+.cl { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 14.5px; color: var(--fg-2); }
+.cl li { display: flex; gap: 8px; align-items: baseline; }
+.cl li::before { content: "•"; color: var(--clay); }
+.cl li.miss { color: var(--fg-3); }
+.cnote { padding: 12px 16px; border: 1px solid rgba(148,100,22,.4); border-radius: 12px; background: #fbf0d8; color: var(--warn); font-size: 14px; margin-top: 14px; }
+.subnav { display: flex; margin: 22px 0 16px; }
+.lecs { display: grid; gap: 12px; }
+.lec { display: grid; gap: 10px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
+.lec.done { border-color: rgba(61,122,80,.45); background: #f6faf4; }
+.lh { display: flex; gap: 12px; align-items: center; min-width: 0; }
+.lh b { font-weight: 600; min-width: 0; overflow-wrap: anywhere; flex: 1; }
+.ficon { flex: none; width: 36px; height: 44px; border-radius: 4px 10px 4px 4px; background: #f7dcd2; border: 1px solid rgba(179,70,58,.35); display: grid; place-items: end center; padding-bottom: 5px; font: 700 10px/1 var(--body); color: var(--bad); }
+.ficon.t { background: var(--sage); border-color: rgba(61,122,80,.4); color: var(--ok); }
+.lmeta { font-size: 13px; color: var(--fg-3); }
+.la { display: flex; flex-wrap: wrap; gap: 8px; }
+.tg { background: var(--surface); border: 1px solid var(--line-2); border-radius: 10px; padding: 6px 14px; font-size: 14px; color: var(--fg-2); transition: border-color .15s, color .15s, background .15s; }
+.tg:hover { border-color: var(--white); color: var(--acc-2); }
+.tg.pri { background: var(--white); color: var(--on-white); border-color: var(--white); }
+.tg[aria-pressed="true"] { background: var(--white); color: var(--on-white); border-color: var(--white); font-weight: 600; }
+.tg.ok { border-color: var(--ok); color: var(--ok); }
+.tg.bad:hover { border-color: var(--bad); color: var(--bad); }
+.askq { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 14px; border: 1.5px dashed var(--white); border-radius: 12px; font-size: 14.5px; background: #fbf5ea; }
+.sc, .cc { display: grid; gap: 8px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.sc.marked, .cc.marked { border-color: var(--clay); background: #fdf3ee; }
+.sh { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
+.sh b { font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.sc ul { margin: 0; padding-inline-start: 20px; color: var(--fg-2); font-size: 14.5px; }
+.sc p, .cc p { color: var(--fg-2); font-size: 15px; overflow-wrap: anywhere; }
+.kd { font: 500 12px var(--body); padding: 1px 10px; border-radius: 999px; background: var(--surface-2); color: var(--fg-2); margin-inline-end: 8px; }
+.kd.law { background: #f6e3b8; color: var(--warn); }
+.markbar { display: grid; gap: 12px; padding: 18px; border: 1.5px solid var(--white); border-radius: 16px; background: var(--surface); }
+.mchips { display: flex; flex-wrap: wrap; gap: 8px; }
+.wk { display: grid; gap: 4px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.wk small { color: var(--fg-3); }
+.wk .kd { justify-self: start; }
+
+
+/* الرئيسية: تفاصيل إضافية */
+.hello { color: var(--fg-2); font-size: 15px; margin-top: -6px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+.stat { display: grid; gap: 2px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
+.stat b { font: 700 2.2rem/1.1 var(--display); color: var(--clay); font-variant-numeric: lining-nums; }
+.stat span { font-size: 13.5px; color: var(--fg-2); }
+.twocol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.today { display: grid; gap: 10px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); align-content: start; }
+.today h4 { font-size: 1.35rem; }
+.today ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.today li { display: grid; gap: 1px; padding-inline-start: 14px; border-inline-start: 3px solid var(--sage-d); font-size: 14.5px; }
+.today li small { color: var(--fg-3); font-size: 13px; }
+.today li.rv { border-color: var(--clay); }
+.upc li { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-inline-start-color: var(--clay); }
+.upc li small { display: block; }
+.upc li b { font-family: var(--display); font-size: 1.25rem; color: var(--clay); white-space: nowrap; }
+.tip { padding: 16px 18px; border: 1.5px dashed var(--line-2); border-radius: 16px; background: #fbf5ea; display: grid; gap: 4px; }
+.tip b { font-family: var(--display); font-size: 1.2rem; color: var(--acc-2); }
+.tip span { color: var(--fg-2); font-size: 15px; }
+.steps3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; counter-reset: st; }
+.steps3 div { counter-increment: st; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); display: grid; gap: 4px; }
+.steps3 div::before { content: counter(st); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--sage); color: var(--sage-d); font: 700 1.1rem var(--display); }
+.steps3 b { font-family: var(--display); font-size: 1.25rem; color: var(--acc-2); }
+.steps3 span { color: var(--fg-2); font-size: 14px; }
+.resume { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 18px; border: 1px solid var(--white); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); }
+.resume span { color: var(--fg-2); font-size: 14px; display: block; }
+.resume b { overflow-wrap: anywhere; }
+
+/* قارئ الملفات */
+.reader { display: grid; gap: 10px; }
+.rbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.rbar b { flex: 1; min-width: 0; font-weight: 600; overflow-wrap: anywhere; }
+.rtools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow); position: sticky; top: 56px; z-index: 5; }
+@media (min-width: 861px) { .rtools { top: 8px; } }
+.rtools .sw { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line-2); padding: 0; }
+.rtools .sw[aria-pressed="true"] { box-shadow: 0 0 0 2.5px var(--acc-2); }
+.rtools .sp { flex: 1; }
+.rview { overflow: auto; border: 1px solid var(--line-2); border-radius: 14px; background: #ece3d4; max-height: calc(100vh - 230px); min-height: 320px; -webkit-overflow-scrolling: touch; }
+.pagebox { position: relative; margin: 0 auto; width: max-content; background: #fff; }
+.pagebox canvas { display: block; }
+.pagebox canvas.ov { position: absolute; inset: 0; touch-action: none; }
+.pagebox canvas.ov.off { pointer-events: none; }
+.rtools .tg { padding: 4px 11px; font-size: 13.5px; border-radius: 9px; }
+.rtools { gap: 6px; padding: 8px; }
+.rtext { position: absolute; z-index: 3; min-width: 120px; padding: 4px 8px; border: 1.5px solid var(--white); border-radius: 8px; background: #fffefb; font: 16px var(--body); }
+.rnav { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.rnav .pg { font-variant-numeric: tabular-nums; color: var(--fg-2); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lg" viewBox="190 600 350 385">
+  <rect x="218" y="606" width="193" height="190" rx="14" fill="#e8e3dc"/>
+  <rect x="348" y="815" width="175" height="162" rx="14" fill="#e6e1da"/>
+  <rect x="358" y="642" width="174" height="171" rx="18" fill="#d3e5ca"/>
+  <polygon points="299,744 438,790 384,822 346,808" fill="#4d7857"/>
+  <polygon points="384,822 438,790 440,864" fill="#7fa585"/>
+  <polygon points="346,808 384,822 382,868 346,868" fill="#262626"/>
+  <line x1="298" y1="706" x2="362" y2="706" stroke="#8d8f88" stroke-width="7" stroke-linecap="round"/>
+  <line x1="298" y1="706" x2="298" y2="746" stroke="#4a5f4d" stroke-width="7" stroke-linecap="round"/>
+  <line x1="366" y1="748" x2="443" y2="748" stroke="#44704f" stroke-width="7" stroke-linecap="round"/>
+  <line x1="443" y1="748" x2="443" y2="792" stroke="#44704f" stroke-width="7" stroke-linecap="round"/>
+  <rect x="193" y="768" width="187" height="178" rx="16" fill="#fffdfa" stroke="#e3dbcf" stroke-width="2.5"/>
+  <line x1="285" y1="866" x2="378" y2="866" stroke="#242424" stroke-width="8" stroke-linecap="round"/>
+  <line x1="386" y1="882" x2="442" y2="882" stroke="#c9735b" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="298" cy="706" r="14" fill="#4e5f50"/>
+  <circle cx="443" cy="748" r="14" fill="#44704f"/>
+  <circle cx="285" cy="866" r="14" fill="#232323"/>
+  <circle cx="442" cy="882" r="14" fill="#c9735b"/>
+</symbol></svg>
+<div id="app" class="shell" dir="rtl" lang="ar">
+<aside class="rail">
+<button class="brand" type="button" data-go="home" aria-label="مَدارِك، الرئيسية"><svg viewBox="0 0 350 385" aria-hidden="true"><use href="#lg" width="350" height="385"/></svg><span>مَدارِك</span></button>
+<nav aria-label="الأقسام">
+<button class="tab" type="button" data-go="home" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2v7.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg><span>مجلداتي</span></button>
+<button class="tab" type="button" data-go="tutor" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8l-4 4v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg><span>المعلّم</span></button>
+<button class="tab" type="button" data-go="homework" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/></svg><span>الواجبات</span></button>
+<button class="tab" type="button" data-go="summary" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/></svg><span>التلخيص</span></button>
+<button class="tab" type="button" data-go="quiz" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg><span>الاختبارات</span></button>
+</nav>
+<button class="echip" type="button"></button>
+</aside>
+<div class="col">
+<header class="mbar"><button class="brand" type="button" data-go="home" aria-label="مَدارِك، الرئيسية"><svg viewBox="0 0 350 385" aria-hidden="true"><use href="#lg" width="350" height="385"/></svg><span>مَدارِك</span></button><button class="echip" type="button"></button></header>
+  <div id="ai-banner" class="banner" hidden>تعذّر تحميل أدوات الذكاء الاصطناعي. حدّث الصفحة وحاول مرة أخرى.</div>
+
+  <main>
+    <section id="v-home" class="view"><div id="c-root"></div></section>
+
+    <section id="v-tutor" class="view" hidden>
+      <div class="vh">
+        <h2>المعلّم الخصوصي</h2>
+        <p class="sub">اسأل عن أي درس. يشرح لك المعلّم بمثال، ثم يسألك سؤالًا ليتأكد من فهمك. أرفق ملزمتك ليشرح منها.</p>
+      </div>
+      <div class="chatbox">
+        <div class="chatbar">
+          <label class="field" style="flex:0 1 180px"><span>مستواك في الموضوع</span>
+            <select id="t-level"><option>مبتدئ</option><option selected>متوسط</option><option>متقدم</option></select></label>
+          <div class="actions" style="margin-inline-start:auto">
+            <button class="btn ghost sm" id="t-clear" type="button">محادثة جديدة</button>
+          </div>
+        </div>
+        <div class="msgs" id="t-msgs" aria-live="polite"></div>
+        <div class="composer">
+          <div class="chips" id="t-chips"></div>
+          <div class="line">
+            <label class="attach-btn">إرفاق ملف أو صورة
+              <input type="file" id="t-file" multiple accept=".pdf,.docx,.pptx,.txt,.md,.csv,image/*">
+            </label>
+            <textarea id="t-input" rows="2" dir="auto" placeholder="اكتب سؤالك هنا. زر الإدخال (Enter) للإرسال، ومعه Shift لسطر جديد."></textarea>
+            <button class="btn" id="t-send" type="button">إرسال</button>
+            <button class="btn ghost" id="t-stop" type="button" hidden>إيقاف</button>
+          </div>
+          <div class="status" id="t-status" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOMEWORK -->
+    <section id="v-homework" class="view" hidden>
+      <div class="vh">
+        <h2>مساعد الواجبات</h2>
+        <p class="sub">الهدف أن تفهم الطريقة، لا أن تنسخ الجواب. اختر أن تحصل على الحل المشروح، أو تلميحات تقودك إليه، أو تصحيح لحلّك.</p>
+      </div>
+      <div class="panel stack">
+        <div class="row">
+          <div class="field" style="flex:0 0 auto">
+            <span>ماذا تريد؟</span>
+            <div class="seg" id="hw-mode" role="group" aria-label="نوع المساعدة">
+              <button type="button" data-m="solve" aria-pressed="true">حلّ مشروح</button>
+              <button type="button" data-m="hint" aria-pressed="false">تلميحات فقط</button>
+              <button type="button" data-m="check" aria-pressed="false">صحّح حلّي</button>
+            </div>
+          </div>
+          <label class="field"><span>المادة</span><input type="text" id="hw-subject" dir="auto" placeholder="مثال: الرياضيات"></label>
+        </div>
+        <label class="field"><span>نص الواجب أو السؤال</span><textarea id="hw-q" rows="4" dir="auto" placeholder="الصق السؤال هنا، أو صوّر الصفحة وأرفقها بالأسفل."></textarea></label>
+        <label class="field" id="hw-ans-wrap" hidden><span>حلّك أنت</span><textarea id="hw-a" rows="5" dir="auto" placeholder="اكتب خطواتك وجوابك كما كتبتها. يمكنك أيضًا إرفاق صورة حلّك."></textarea></label>
+        <label class="drop" id="hw-drop">
+          <strong>إرفاق صورة أو ملف</strong>
+          <small>صورة للواجب أو لحلّك، أو PDF أو Word. اسحب الملف إلى هنا أو اضغط للاختيار.</small>
+          <input type="file" id="hw-file" multiple accept=".pdf,.docx,.pptx,.txt,.md,image/*">
+        </label>
+        <div class="chips" id="hw-chips"></div>
+        <div class="actions">
+          <button class="btn" id="hw-go" type="button">ابدأ</button>
+          <button class="btn ghost" id="hw-stop" type="button" hidden>إيقاف</button>
+          <span class="status" id="hw-status" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="outcard" id="hw-outcard" hidden>
+        <div class="md" id="hw-out" aria-live="polite"></div>
+        <div class="actions">
+          <button class="btn ghost sm" id="hw-copy" type="button">نسخ</button>
+          <button class="btn ghost sm" id="hw-ask" type="button">اسأل المعلّم عن هذا</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="v-summary" class="view" hidden>
+      <div class="vh">
+        <h2>التلخيص</h2>
+        <p class="sub">ارفع ملزمتك أو الصق نصًا، واختر شكل الملخص الذي يناسبك: نقاط، فقرات، مقال، أو غيرها.</p>
+      </div>
+      <div class="panel stack">
+        <label class="drop" id="s-drop">
+          <strong>ارفع ملفًا</strong>
+          <small>PDF · Word · PowerPoint · نص · صورة. اسحب الملف إلى هنا أو اضغط للاختيار.</small>
+          <input type="file" id="s-file" multiple accept=".pdf,.docx,.pptx,.txt,.md,.csv,image/*">
+        </label>
+        <div class="chips" id="s-chips"></div>
+        <label class="field"><span>أو الصق النص هنا</span><textarea id="s-paste" rows="4" dir="auto" placeholder="الصق النص المراد تلخيصه."></textarea></label>
+        <label class="field"><span>التركيز على جزء (اختياري)</span><input type="text" id="s-focus" dir="auto" placeholder="مثال: الفصل الثاني فقط"></label>
+        <div class="row">
+          <label class="field"><span>شكل الملخص</span>
+            <select id="s-fmt">
+              <option value="bullets" selected>نقاط مرتبة</option>
+              <option value="paragraphs">فقرات</option>
+              <option value="essay">مقال</option>
+              <option value="qa">أسئلة وأجوبة للمراجعة</option>
+              <option value="terms">مصطلحات وتعريفات</option>
+              <option value="quick">خلاصة سريعة</option>
+            </select></label>
+          <label class="field"><span>الطول</span>
+            <select id="s-len"><option value="short">قصير</option><option value="medium" selected>متوسط</option><option value="long">مفصّل</option></select></label>
+        </div>
+        <div class="actions">
+          <button class="btn" id="s-go" type="button">لخّص</button>
+          <button class="btn ghost" id="s-stop" type="button" hidden>إيقاف</button>
+          <span class="status" id="s-status" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="outcard" id="s-outcard" hidden>
+        <div class="md" id="s-out" aria-live="polite"></div>
+        <div class="actions">
+          <button class="btn ghost sm" id="s-copy" type="button">نسخ</button>
+          <button class="btn ghost sm" id="s-ask" type="button">اسأل المعلّم عنه</button>
+          <button class="btn ghost sm" id="s-quiz" type="button">أنشئ اختبارًا منه</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="v-quiz" class="view" hidden>
+      <div class="vh">
+        <h2>الاختبارات</h2>
+        <p class="sub">ارفع ملزمتك أو الصق نصًا، واختر نوع الأسئلة. بعد الانتهاء تحصل على درجتك وشرح لكل سؤال.</p>
+      </div>
+      <div class="panel stack">
+        <label class="drop" id="q-drop">
+          <strong>ارفع ملفًا</strong>
+          <small>PDF · Word · PowerPoint · نص · صورة. اسحب الملف إلى هنا أو اضغط للاختيار.</small>
+          <input type="file" id="q-file" multiple accept=".pdf,.docx,.pptx,.txt,.md,.csv,image/*">
+        </label>
+        <div class="chips" id="q-chips"></div>
+        <label class="field"><span>أو الصق النص هنا</span><textarea id="q-paste" rows="4" dir="auto" placeholder="الصق فقرات من درسك."></textarea></label>
+        <div class="actions"><button class="btn ghost sm" id="q-sample" type="button">استخدم نصًا تجريبيًا</button></div>
+        <label class="field"><span>التركيز على موضوع (اختياري)</span><input type="text" id="q-topic" dir="auto" placeholder="مثال: مراحل التفاعل الضوئي"></label>
+        <div class="row">
+          <label class="field"><span>عدد الأسئلة</span><select id="q-n"><option>5</option><option selected>8</option><option>12</option></select></label>
+          <label class="field"><span>الصعوبة</span><select id="q-d"><option>سهل</option><option selected>متوسط</option><option>صعب</option></select></label>
+        </div>
+        <div class="checks" role="group" aria-label="أنواع الأسئلة">
+          <label><input type="checkbox" id="q-t-mcq" checked> اختيار من متعدد</label>
+          <label><input type="checkbox" id="q-t-tf" checked> صح أو خطأ</label>
+          <label><input type="checkbox" id="q-t-short"> إجابة قصيرة</label>
+        </div>
+        <div class="actions">
+          <button class="btn" id="q-go" type="button">أنشئ الاختبار</button>
+          <button class="btn ghost" id="q-stop" type="button" hidden>إيقاف</button>
+          <span class="status" id="q-status" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+      <div id="q-area"></div>
+    </section>
+  </main>
+</div>
+<nav class="bnav" aria-label="الأقسام">
+<button class="tab" type="button" data-go="home" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2v7.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></svg><span>مجلداتي</span></button>
+<button class="tab" type="button" data-go="tutor" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8l-4 4v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg><span>المعلّم</span></button>
+<button class="tab" type="button" data-go="homework" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/></svg><span>الواجبات</span></button>
+<button class="tab" type="button" data-go="summary" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/></svg><span>التلخيص</span></button>
+<button class="tab" type="button" data-go="quiz" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg><span>الاختبارات</span></button>
+</nav>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+/* مَدارِك AI client: talks to the server's /api/ai and exposes window.BrighterAI.
+   Same shape the pages use: BrighterAI(input, {signal, onText, images, modelTier}), BrighterAI.json(...), BrighterAI.limits(). */
+(function () {
+  'use strict';
+  var TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  var MAX_SIDE = 1600;
+
+  function fail(code, message, text) {
+    var e = { code: code, message: message || code };
+    if (text) e.text = text;
+    return e;
+  }
+
+  function blobToBase64(blob) {
+    return new Promise(function (res, rej) {
+      var r = new FileReader();
+      r.onload = function () { res(String(r.result).split(',')[1] || ''); };
+      r.onerror = function () { rej(new Error('read')); };
+      r.readAsDataURL(blob);
+    });
+  }
+
+  /* shrink big photos so the request stays small */
+  async function prepImage(blob) {
+    if (TYPES.indexOf(blob.type) < 0) throw new Error('type');
+    var bmp = await createImageBitmap(blob);
+    var scale = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
+    var c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(bmp.width * scale));
+    c.height = Math.max(1, Math.round(bmp.height * scale));
+    var g = c.getContext('2d');
+    g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
+    g.drawImage(bmp, 0, 0, c.width, c.height);
+    if (bmp.close) bmp.close();
+    var out = await new Promise(function (res) { c.toBlob(res, 'image/jpeg', 0.85); });
+    if (!out) throw new Error('encode');
+    return { mime: 'image/jpeg', data: await blobToBase64(out) };
+  }
+
+  async function call(input, opts, wantJson) {
+    opts = opts || {};
+    var images = [];
+    if (opts.images) {
+      var list = Array.isArray(opts.images) ? opts.images : (opts.images.length != null && !opts.images.type ? Array.prototype.slice.call(opts.images) : [opts.images]);
+      try {
+        for (var i = 0; i < list.length && i < 4; i++) images.push(await prepImage(list[i]));
+      } catch (e) { throw fail('image_rejected', 'image'); }
+    }
+    var payload = { input: input + '\n\n(ملاحظة: إن كتبت بالعربية فاستخدم الفصحى الواضحة السليمة دون عامية ولا كلمات أجنبية.)', images: images, json: !!wantJson, tier: opts.modelTier || 'default' };
+    var resp;
+    try {
+      resp = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: opts.signal,
+      });
+    } catch (e) {
+      if (opts.signal && opts.signal.aborted) throw fail('cancelled');
+      throw fail('upstream_error', 'network');
+    }
+    if (!resp.ok) {
+      var code = 'upstream_error', msg = '';
+      try { var j = await resp.json(); code = j.error.code; msg = j.error.message; } catch (e) {}
+      throw fail(code, msg);
+    }
+    var reader = resp.body.getReader(), dec = new TextDecoder(), buf = '', text = '', truncated = false;
+    try {
+      for (;;) {
+        var r = await reader.read();
+        if (r.done) break;
+        buf += dec.decode(r.value, { stream: true });
+        var idx;
+        while ((idx = buf.indexOf('\n\n')) >= 0) {
+          var ev = buf.slice(0, idx); buf = buf.slice(idx + 2);
+          if (ev.indexOf('data:') !== 0) continue;
+          var d;
+          try { d = JSON.parse(ev.slice(5)); } catch (e) { continue; }
+          if (d.t) {
+            text += d.t;
+            if (opts.onText) { try { opts.onText({ text: text, delta: d.t }); } catch (e) {} }
+          } else if (d.error) {
+            throw fail(d.error, '', text);
+          } else if (d.done) {
+            truncated = !!d.truncated;
+          }
+        }
+      }
+    } catch (e) {
+      if (e && typeof e.code === 'string') throw e;
+      if (opts.signal && opts.signal.aborted) throw fail('cancelled', '', text);
+      throw fail('upstream_error', 'stream', text);
+    }
+    if (!text.trim()) throw fail('empty_completion');
+    return { text: text, truncated: truncated };
+  }
+
+  function parseJson(text) {
+    var t = text.trim();
+    try { return JSON.parse(t); } catch (e) {}
+    var m = /```(?:json)?\s*([\s\S]*?)```/.exec(t);
+    if (m) { try { return JSON.parse(m[1]); } catch (e) {} }
+    var a = t.search(/[\[{]/), z = Math.max(t.lastIndexOf(']'), t.lastIndexOf('}'));
+    if (a >= 0 && z > a) { try { return JSON.parse(t.slice(a, z + 1)); } catch (e) {} }
+    throw fail('invalid_json', 'no json', text);
+  }
+
+  function BrighterAI(input, opts) { return call(input, opts, false); }
+  BrighterAI.json = async function (input, opts) {
+    var r = await call(input, opts, true);
+    if (r.truncated) throw fail('invalid_json', 'truncated', r.text);
+    return parseJson(r.text);
+  };
+  BrighterAI.limits = function () {
+    return Promise.resolve({ maxPromptBytes: 200000, images: { maxCount: 4, maxInputBytes: 20 * 1024 * 1024, mediaTypes: TYPES } });
+  };
+  window.BrighterAI = BrighterAI;
+})();
+</script>
+<script>
+
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var MAXCH = 60000;
+  var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ESC[c]; }); }
+
+  /* ---------- storage (per viewer, optional) ---------- */
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+
+  /* ---------- Claude access ---------- */
+  var sampleP = Promise.resolve(window.BrighterAI || null);
+  var imgLimits = null;
+  sampleP.then(async function (s) {
+    if (!s) { $('#ai-banner').hidden = false; return; }
+    try { var l = await s.limits(); imgLimits = l && l.images ? l.images : null; } catch (e) {}
+    if (!imgLimits) {
+      $$('input[type=file]').forEach(function (i) { i.accept = i.accept.replace(',image/*', ''); });
+    }
+  });
+
+  function errCopy(e) {
+    switch (e && e.code) {
+      case 'not_granted': return 'تعذّر الوصول إلى الذكاء الاصطناعي. حدّث الصفحة وحاول مرة أخرى.';
+      case 'rate_limited': return 'وصلت إلى حد الاستخدام المجاني حاليًا. انتظر قليلًا أو جرّب لاحقًا، فالحد يتجدد يوميًا.';
+      case 'sampling_disabled': case 'capability_disabled': case 'not_declared': case 'capability_removed': return 'الذكاء الاصطناعي غير متاح لحسابك أو مؤسستك حاليًا.';
+      case 'prompt_too_large': return 'المحتوى كبير جدًا. جرّب ملفًا أقصر أو جزءًا منه.';
+      case 'image_rejected': case 'images_unavailable': return 'تعذّرت قراءة الصورة. جرّب صورة JPG أو PNG أصغر.';
+      case 'refused': return 'تعذّر على Claude معالجة هذا الطلب. عدّل المحتوى وحاول مرة أخرى.';
+      case 'invalid_json': return 'لم تُرتَّب النتيجة بشكل صحيح هذه المرة. اضغط الزر مرة أخرى.';
+      case 'session_expired': return 'انتهت جلستك. سجّل الدخول من جديد ثم حاول.';
+      case 'cancelled': return '';
+      default: return 'حدث خطأ مؤقت في الاتصال. حاول مرة أخرى.';
+    }
+  }
+  function say(el, t, kind) { el.textContent = t || ''; el.dataset.kind = kind || ''; }
+  async function needSample(statusEl) {
+    var s = await sampleP;
+    if (!s) say(statusEl, 'الذكاء الاصطناعي غير متاح الآن. حدّث الصفحة وحاول مرة أخرى.', 'err');
+    return s;
+  }
+  function setBusy(go, stop, busy) { go.disabled = busy; stop.hidden = !busy; }
+
+  /* CHARTS:START */
+  var PAL = ['#7a4a2b', '#4f7a58', '#c9735b', '#4d6a99', '#b08a2e', '#7d5a8c', '#3f8c92', '#8c8279'];
+  var chartSeq = 0;
+  function num(v) {
+    if (typeof v === 'string') v = parseFloat(v.replace(/[,،٫]/g, ''));
+    return typeof v === 'number' && isFinite(v) ? v : null;
+  }
+  function fmtN(v) {
+    var a = Math.abs(v);
+    if (a !== 0 && (a >= 1e6 || a < 1e-3)) return v.toExponential(1).replace('+', '');
+    return String(+v.toFixed(a >= 100 ? 0 : a >= 10 ? 1 : 3));
+  }
+  function shortS(s, n) { s = String(s); return s.length > n ? s.slice(0, n - 1) + '…' : s; }
+  function niceTicks(lo, hi, n) {
+    if (!(hi > lo)) { hi = lo + 1; }
+    var span = hi - lo, st0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(st0))), r = st0 / mag;
+    var step = (r < 1.5 ? 1 : r < 3 ? 2 : r < 7 ? 5 : 10) * mag;
+    var a = Math.floor(lo / step + 1e-9) * step, b = Math.ceil(hi / step - 1e-9) * step, t = [];
+    for (var v = a; v <= b + step / 2; v += step) t.push(+v.toFixed(12));
+    return t;
+  }
+
+  /* safe math expression -> function(x). No eval, no Function. */
+  function compileExpr(src, vname) {
+    vname = vname || 'x';
+    var s = String(src).toLowerCase().replace(/\s+/g, '').replace(/[−–—]/g, '-').replace(/[×·⋅]/g, '*').replace(/÷/g, '/').replace(/²/g, '^2').replace(/³/g, '^3')
+      .replace(/π/g, 'pi').replace(/√/g, 'sqrt').replace(/\*\*/g, '^').replace(/^(y|f\(x\)|x\(t\)|y\(t\))=/, '')
+      .replace(/log10\(/g, 'log(').replace(/\|([^|]+)\|/g, 'abs($1)')
+      .replace(/(sin|cos|tan)\^(\d)\(([^()]*)\)/g, '($1($3))^$2')
+      .replace(/(sin|cos|tan|ln|log|sqrt|exp|abs)([xt])(?![a-z])/g, '$1($2)');
+    var toks = [], re = /(\d+\.?\d*|\.\d+)|([a-z]+)|([-+*\/^()])/g, m, used = 0;
+    while ((m = re.exec(s))) {
+      if (m.index !== used) return null;
+      used = re.lastIndex;
+      toks.push(m[1] !== undefined ? { n: parseFloat(m[1]) } : m[2] !== undefined ? { id: m[2] } : { op: m[3] });
+    }
+    if (used !== s.length || !toks.length || toks.length > 200) return null;
+    var F = { sin: Math.sin, cos: Math.cos, tan: Math.tan, sqrt: Math.sqrt, abs: Math.abs, ln: Math.log, log: Math.log10, log2: Math.log2, exp: Math.exp, asin: Math.asin, acos: Math.acos, atan: Math.atan, sinh: Math.sinh, cosh: Math.cosh, tanh: Math.tanh, floor: Math.floor, ceil: Math.ceil };
+    var C = { pi: Math.PI, e: Math.E };
+    var i = 0, bad = false;
+    function pk() { return toks[i]; }
+    function isOp(o) { var t = pk(); return t && t.op === o; }
+    function mk(o, a, b) {
+      return o === '+' ? function (x) { return a(x) + b(x); } : o === '-' ? function (x) { return a(x) - b(x); }
+        : o === '*' ? function (x) { return a(x) * b(x); } : function (x) { return a(x) / b(x); };
+    }
+    function startsAtom() { var t = pk(); return t && (t.n !== undefined || t.id !== undefined || t.op === '('); }
+    function expr() {
+      var l = term();
+      while (isOp('+') || isOp('-')) { var o = toks[i++].op; l = mk(o, l, term()); }
+      return l;
+    }
+    function term() {
+      var l = unary();
+      for (;;) {
+        if (isOp('*') || isOp('/')) { var o = toks[i++].op; l = mk(o, l, unary()); }
+        else if (startsAtom()) l = mk('*', l, power());
+        else return l;
+      }
+    }
+    function unary() {
+      if (isOp('-')) { i++; var u = unary(); return function (x) { return -u(x); }; }
+      if (isOp('+')) { i++; return unary(); }
+      return power();
+    }
+    function power() {
+      var b = atom();
+      if (isOp('^')) { i++; var e = unary(); var bb = b; return function (x) { return Math.pow(bb(x), e(x)); }; }
+      return b;
+    }
+    function atom() {
+      var t = toks[i++];
+      if (!t) { bad = true; return function () { return NaN; }; }
+      if (t.n !== undefined) { var c = t.n; return function () { return c; }; }
+      if (t.id !== undefined) {
+        if (t.id === vname) return function (x) { return x; };
+        if (Object.prototype.hasOwnProperty.call(C, t.id)) { var k = C[t.id]; return function () { return k; }; }
+        if (Object.prototype.hasOwnProperty.call(F, t.id) && isOp('(')) { i++; var a = expr(); if (isOp(')')) i++; else bad = true; var f = F[t.id]; return function (x) { return f(a(x)); }; }
+        bad = true; return function () { return NaN; };
+      }
+      if (t.op === '(') { var inner = expr(); if (isOp(')')) i++; else bad = true; return inner; }
+      bad = true; return function () { return NaN; };
+    }
+    var fn = expr();
+    if (bad || i !== toks.length) return null;
+    return fn;
+  }
+
+  function plotBase(spec, g) {
+    var s = '';
+    g.yt.forEach(function (v) {
+      var y = g.ys(v).toFixed(1);
+      s += '<line class="grid" x1="' + g.L + '" x2="' + (g.W - g.R) + '" y1="' + y + '" y2="' + y + '"/>' +
+        '<text x="' + (g.L - 8) + '" y="' + (+y + 4) + '" text-anchor="end">' + fmtN(v) + '</text>';
+    });
+    if (g.xt) g.xt.forEach(function (v) {
+      var x = g.xs(v).toFixed(1);
+      s += '<line class="grid" x1="' + x + '" x2="' + x + '" y1="' + g.T + '" y2="' + (g.H - g.B) + '"/>' +
+        '<text x="' + x + '" y="' + (g.H - g.B + 22) + '" text-anchor="middle">' + fmtN(v) + '</text>';
+    });
+    s += '<line class="axis" x1="' + g.L + '" x2="' + (g.W - g.R) + '" y1="' + (g.H - g.B) + '" y2="' + (g.H - g.B) + '"/>' +
+      '<line class="axis" x1="' + g.L + '" x2="' + g.L + '" y1="' + g.T + '" y2="' + (g.H - g.B) + '"/>';
+    if (spec.xLabel) s += '<text class="al" x="' + ((g.L + g.W - g.R) / 2) + '" y="' + (g.H - 8) + '" text-anchor="middle">' + esc(shortS(spec.xLabel, 40)) + '</text>';
+    if (spec.yLabel) s += '<text class="al" transform="translate(14 ' + ((g.T + g.H - g.B) / 2) + ') rotate(-90)" text-anchor="middle">' + esc(shortS(spec.yLabel, 40)) + '</text>';
+    return s;
+  }
+  function svgHead(spec, W, H) {
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(spec.title || 'رسم بياني') + '" xmlns="http://www.w3.org/2000/svg">' +
+      (spec.title ? '<text class="ct" x="' + W / 2 + '" y="24" text-anchor="middle">' + esc(shortS(spec.title, 70)) + '</text>' : '');
+  }
+
+  function catChart(spec, kind) {
+    var labels = (Array.isArray(spec.labels) ? spec.labels : []).slice(0, 24).map(String);
+    var ser = (Array.isArray(spec.series) ? spec.series : []).slice(0, 6).map(function (s) {
+      var vals = s && Array.isArray(s.values) ? s.values : [];
+      return { name: String((s && s.name) || ''), v: labels.map(function (_, j) { return num(vals[j]); }) };
+    });
+    if (!labels.length || !ser.length) return null;
+    var all = [];
+    ser.forEach(function (s) { s.v.forEach(function (v) { if (v !== null) all.push(v); }); });
+    if (!all.length) return null;
+    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+    if (kind === 'bar') { lo = Math.min(lo, 0); hi = Math.max(hi, 0); }
+    var yt = niceTicks(lo, hi, 5);
+    var rot = labels.length > 6 || labels.some(function (l) { return l.length > 9; });
+    var W = 640, H = 360, L = 64, R = 14, T = spec.title ? 50 : 22, B = (rot ? 100 : 50) + (spec.xLabel ? 22 : 0);
+    var y0 = yt[0], y1 = yt[yt.length - 1], pw = W - L - R, ph = H - T - B, cw = pw / labels.length;
+    var ys = function (v) { return T + ph - (v - y0) / (y1 - y0) * ph; };
+    var s = svgHead(spec, W, H) + plotBase(spec, { W: W, H: H, L: L, R: R, T: T, B: B, yt: yt, ys: ys });
+    if (kind === 'bar') {
+      var gw = cw * 0.72, bw = gw / ser.length, z = ys(0);
+      ser.forEach(function (sr, k) {
+        sr.v.forEach(function (v, j) {
+          if (v === null) return;
+          var x = L + cw * j + (cw - gw) / 2 + bw * k, y = ys(v), top = Math.min(y, z), h = Math.max(1, Math.abs(z - y));
+          s += '<rect x="' + x.toFixed(1) + '" y="' + top.toFixed(1) + '" width="' + Math.max(1, bw - 2).toFixed(1) + '" height="' + h.toFixed(1) + '" rx="3" fill="' + PAL[k] + '"><title>' + esc(labels[j] + (sr.name ? ' (' + sr.name + ')' : '') + ': ' + fmtN(v)) + '</title></rect>';
+          if (labels.length * ser.length <= 10) s += '<text class="vl" x="' + (x + bw / 2 - 1).toFixed(1) + '" y="' + (v >= 0 ? top - 5 : top + h + 13).toFixed(1) + '" text-anchor="middle">' + fmtN(v) + '</text>';
+        });
+      });
+    } else {
+      ser.forEach(function (sr, k) {
+        var d = '', pen = false;
+        sr.v.forEach(function (v, j) {
+          if (v === null) { pen = false; return; }
+          d += (pen ? 'L' : 'M') + (L + cw * j + cw / 2).toFixed(1) + ' ' + ys(v).toFixed(1); pen = true;
+        });
+        s += '<path d="' + d + '" fill="none" stroke="' + PAL[k] + '" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
+        sr.v.forEach(function (v, j) {
+          if (v === null) return;
+          s += '<circle cx="' + (L + cw * j + cw / 2).toFixed(1) + '" cy="' + ys(v).toFixed(1) + '" r="3.6" fill="' + PAL[k] + '"><title>' + esc(labels[j] + ': ' + fmtN(v)) + '</title></circle>';
+        });
+      });
+    }
+    labels.forEach(function (lb, j) {
+      var x = (L + cw * j + cw / 2).toFixed(1), y = H - B + 22;
+      s += rot ? '<text x="' + x + '" y="' + y + '" text-anchor="end" transform="rotate(-35 ' + x + ' ' + y + ')">' + esc(shortS(lb, 16)) + '</text>'
+        : '<text x="' + x + '" y="' + y + '" text-anchor="middle">' + esc(shortS(lb, 10)) + '</text>';
+    });
+    return { svg: s + '</svg>', legend: ser.length > 1 ? ser.map(function (x, k) { return { n: x.name, c: PAL[k] }; }) : [] };
+  }
+
+  function xyChart(spec, series, mode) {
+    var xv = [], yv = [];
+    series.forEach(function (s) { s.points.forEach(function (p) { if (p[0] !== null) xv.push(p[0]); if (p[1] !== null) yv.push(p[1]); }); });
+    if (!xv.length || !yv.length) return null;
+    var xlo = Math.min.apply(null, xv), xhi = Math.max.apply(null, xv), ylo = Math.min.apply(null, yv), yhi = Math.max.apply(null, yv);
+    if (mode === 'fn') {
+      var so = yv.slice().sort(function (a, b) { return a - b; });
+      var q = function (p) { return so[Math.min(so.length - 1, Math.max(0, Math.round(p * (so.length - 1))))]; };
+      var qa = q(0.02), qb = q(0.98), cen = (qb - qa) || 1;
+      if ((yhi - ylo) / cen > 4) { var pad = cen * 0.1; ylo = Math.max(ylo, qa - pad); yhi = Math.min(yhi, qb + pad); }
+      if (!(yhi > ylo)) { ylo -= 1; yhi += 1; }
+    }
+    if (mode === 'sc' || mode === 'ln') { var px = ((xhi - xlo) || 1) * 0.06, py = ((yhi - ylo) || 1) * 0.08; xlo -= px; xhi += px; ylo -= py; yhi += py; }
+    var W = 640, H = 360, L = 64, R = 24, T = spec.title ? 50 : 22, B = 52 + (spec.xLabel ? 22 : 0), pw = W - L - R, ph = H - T - B;
+    if (mode === 'pa') {
+      var mx = (xlo + xhi) / 2, my = (ylo + yhi) / 2, hx = ((xhi - xlo) || 2) * 0.58, hy = ((yhi - ylo) || 2) * 0.58;
+      var u = Math.max(hx / pw, hy / ph);
+      xlo = mx - u * pw; xhi = mx + u * pw; ylo = my - u * ph; yhi = my + u * ph;
+    }
+    var exact = mode === 'fn' || mode === 'pa';
+    var xt = niceTicks(xlo, xhi, 6), yt = niceTicks(ylo, yhi, 5);
+    var x0 = exact ? xlo : xt[0], x1 = exact ? xhi : xt[xt.length - 1];
+    var y0 = exact && mode === 'pa' ? ylo : yt[0], y1 = exact && mode === 'pa' ? yhi : yt[yt.length - 1];
+    if (exact) xt = xt.filter(function (v) { return v >= xlo - 1e-9 && v <= xhi + 1e-9; });
+    if (mode === 'pa') yt = yt.filter(function (v) { return v >= ylo - 1e-9 && v <= yhi + 1e-9; });
+    var xs = function (v) { return L + (v - x0) / (x1 - x0) * pw; };
+    var ys = function (v) { return T + ph - (v - y0) / (y1 - y0) * ph; };
+    var id = 'cp' + (++chartSeq);
+    var s = svgHead(spec, W, H) + '<defs><clipPath id="' + id + '"><rect x="' + L + '" y="' + T + '" width="' + pw + '" height="' + ph + '"/></clipPath></defs>' +
+      plotBase(spec, { W: W, H: H, L: L, R: R, T: T, B: B, yt: yt, xt: xt, ys: ys, xs: xs });
+    if (x0 < 0 && x1 > 0) s += '<line class="zero" x1="' + xs(0).toFixed(1) + '" x2="' + xs(0).toFixed(1) + '" y1="' + T + '" y2="' + (H - B) + '"/>';
+    if (y0 < 0 && y1 > 0) s += '<line class="zero" x1="' + L + '" x2="' + (W - R) + '" y1="' + ys(0).toFixed(1) + '" y2="' + ys(0).toFixed(1) + '"/>';
+    s += '<g clip-path="url(#' + id + ')">';
+    series.forEach(function (sr, k) {
+      if (mode === 'sc') {
+        sr.points.forEach(function (p) {
+          if (p[0] === null || p[1] === null) return;
+          s += '<circle cx="' + xs(p[0]).toFixed(1) + '" cy="' + ys(p[1]).toFixed(1) + '" r="4.2" fill="' + PAL[k] + '" fill-opacity=".85"><title>' + esc('(' + fmtN(p[0]) + ', ' + fmtN(p[1]) + ')') + '</title></circle>';
+        });
+      } else {
+        var d = '', pen = false, prev = null;
+        sr.points.forEach(function (p) {
+          if (p[1] === null) { pen = false; prev = null; return; }
+          if (prev !== null && Math.abs(p[1] - prev) > (y1 - y0) * 3) pen = false;
+          d += (pen ? 'L' : 'M') + xs(p[0]).toFixed(1) + ' ' + ys(p[1]).toFixed(1); pen = true; prev = p[1];
+        });
+        s += '<path d="' + d + '" fill="none" stroke="' + PAL[k] + '" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
+        if (mode === 'ln') sr.points.forEach(function (p) {
+          if (p[0] === null || p[1] === null) return;
+          s += '<circle cx="' + xs(p[0]).toFixed(1) + '" cy="' + ys(p[1]).toFixed(1) + '" r="3.8" fill="' + PAL[k] + '"><title>' + esc('(' + fmtN(p[0]) + ', ' + fmtN(p[1]) + ')') + '</title></circle>';
+        });
+      }
+    });
+    s += '</g></svg>';
+    return { svg: s, legend: series.length > 1 ? series.map(function (x, k) { return { n: x.name, c: PAL[k] }; }) : [] };
+  }
+
+  function pieChart(spec) {
+    var labels = (Array.isArray(spec.labels) ? spec.labels : []).map(String);
+    var first = Array.isArray(spec.series) && spec.series[0] && Array.isArray(spec.series[0].values) ? spec.series[0].values : (Array.isArray(spec.values) ? spec.values : []);
+    var items = [];
+    labels.forEach(function (l, j) { var v = num(first[j]); if (v !== null && v > 0) items.push({ l: l, v: v }); });
+    items = items.slice(0, 8);
+    var total = items.reduce(function (a, b) { return a + b.v; }, 0);
+    if (!items.length || !(total > 0)) return null;
+    var W = 640, H = 360, cx = 190, cy = spec.title ? 205 : 180, r = 118, a0 = -Math.PI / 2;
+    var s = svgHead(spec, W, H);
+    items.forEach(function (it, k) {
+      var f = it.v / total, a1 = a0 + f * 2 * Math.PI;
+      var tip = '<title>' + esc(it.l + ': ' + fmtN(it.v) + ' (' + (f * 100).toFixed(1) + '%)') + '</title>';
+      if (f > 0.9999) s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + PAL[k] + '">' + tip + '</circle>';
+      else s += '<path d="M' + cx + ' ' + cy + 'L' + (cx + r * Math.cos(a0)).toFixed(1) + ' ' + (cy + r * Math.sin(a0)).toFixed(1) + 'A' + r + ' ' + r + ' 0 ' + (f > 0.5 ? 1 : 0) + ' 1 ' + (cx + r * Math.cos(a1)).toFixed(1) + ' ' + (cy + r * Math.sin(a1)).toFixed(1) + 'Z" fill="' + PAL[k] + '" stroke="#050507" stroke-width="2">' + tip + '</path>';
+      if (f > 0.07) { var am = (a0 + a1) / 2; s += '<text class="pl" x="' + (cx + r * 0.62 * Math.cos(am)).toFixed(1) + '" y="' + (cy + r * 0.62 * Math.sin(am) + 4).toFixed(1) + '" text-anchor="middle">' + Math.round(f * 100) + '%</text>'; }
+      var ly = 92 + k * 31;
+      s += '<rect x="360" y="' + (ly - 11) + '" width="13" height="13" rx="3" fill="' + PAL[k] + '"/><text x="382" y="' + ly + '">' + esc(shortS(it.l, 18)) + ' · ' + fmtN(it.v) + '</text>';
+      a0 = a1;
+    });
+    return { svg: s + '</svg>', legend: [] };
+  }
+
+  function renderChart(spec) {
+    var t = String(spec.type || '').toLowerCase().replace(/[\s_-]+/g, ''), res = null;
+    var ALIAS = { column: 'bar', columns: 'bar', histogram: 'bar', barchart: 'bar', linechart: 'line', area: 'line', piechart: 'pie', doughnut: 'pie', donut: 'pie', scatterplot: 'scatter', functions: 'function', functionplot: 'function', plot: 'function', graph: 'function', curve: 'function', parametriccurve: 'parametric' };
+    if (ALIAS[t]) t = ALIAS[t];
+    function pts(x) { return (x && Array.isArray(x.points) ? x.points : []).slice(0, 500).map(function (p) { return Array.isArray(p) ? [num(p[0]), num(p[1])] : [null, null]; }); }
+    try {
+      if (t === 'line' && !(Array.isArray(spec.labels) && spec.labels.length) && Array.isArray(spec.series) && spec.series[0] && Array.isArray(spec.series[0].points)) {
+        res = xyChart(spec, spec.series.slice(0, 6).map(function (x) { return { name: String((x && x.name) || ''), points: pts(x) }; }), 'ln');
+      } else if (t === 'bar' || t === 'line') res = catChart(spec, t);
+      else if (t === 'pie') res = pieChart(spec);
+      else if (t === 'scatter') {
+        var sr = Array.isArray(spec.series) ? spec.series : [{ name: '', points: spec.points }];
+        res = xyChart(spec, sr.slice(0, 6).map(function (x) { return { name: String((x && x.name) || ''), points: pts(x) }; }), 'sc');
+      } else if (t === 'function') {
+        var ex = (Array.isArray(spec.exprs) ? spec.exprs : [spec.expr]).filter(Boolean).slice(0, 4).map(String);
+        var fns = ex.map(function (e) { return compileExpr(e); });
+        var a = num(spec.from), b = num(spec.to);
+        if (a === null) a = -10; if (b === null) b = 10;
+        if (ex.length && fns.every(Boolean) && b > a && b - a <= 1e6) {
+          var N = 280;
+          res = xyChart(spec, fns.map(function (f, k) {
+            var pts = [];
+            for (var j = 0; j <= N; j++) { var x = a + (b - a) * j / N, y = f(x); pts.push([x, isFinite(y) && Math.abs(y) < 1e12 ? y : null]); }
+            return { name: 'y = ' + ex[k], points: pts };
+          }), 'fn');
+        }
+      }
+      else if (t === 'parametric') {
+        var fx = compileExpr(spec.x, 't'), fy = compileExpr(spec.y, 't'), ta = num(spec.from), tb = num(spec.to);
+        if (ta === null) ta = 0; if (tb === null) tb = 2 * Math.PI;
+        if (fx && fy && tb > ta) {
+          var pp = [];
+          for (var jj = 0; jj <= 400; jj++) { var tt = ta + (tb - ta) * jj / 400, px = fx(tt), py = fy(tt); pp.push(isFinite(px) && isFinite(py) ? [px, py] : [null, null]); }
+          res = xyChart(spec, [{ name: '', points: pp }], 'pa');
+        }
+      }
+    } catch (e) { res = null; }
+    if (!res) return null;
+    var lg = res.legend.length ? '<div class="lg" dir="auto">' + res.legend.map(function (x) { return '<span><i style="background:' + x.c + '"></i>' + esc(x.n) + '</span>'; }).join('') + '</div>' : '';
+    return '<div class="chartbox" dir="ltr">' + res.svg + lg + '</div>';
+  }
+  function chartBlock(text, lang) {
+    var spec = null;
+    try { spec = JSON.parse(text); } catch (e) { try { spec = JSON.parse(text.replace(/,\s*([}\]])/g, '$1')); } catch (e2) {} }
+    var ok = spec && typeof spec === 'object' && ['bar', 'line', 'pie', 'scatter', 'function', 'parametric'].indexOf(String(spec.type).toLowerCase()) >= 0 || !!spec.exprs || !!spec.expr;
+    var h = ok ? renderChart(spec) : null;
+    return h || (lang === 'chart' ? '<div class="chartbox wait">تعذّر رسم هذا الرسم البياني. اطلب من المعلّم إعادة رسمه.</div>' : null);
+  }
+  function codeHtml(lines, lang) {
+    var txt = lines.join('\n');
+    if (lang === 'chart' || lang === 'json') { var c = chartBlock(txt, lang); if (c) return c; }
+    return '<pre dir="ltr"><code>' + esc(txt) + '</code></pre>';
+  }
+
+  /* ---------- tiny markdown ---------- */
+  function inline(s) {
+    s = esc(s);
+    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>');
+    return s;
+  }
+  function md(src) {
+    var lines = String(src).replace(/\r/g, '').split('\n');
+    var html = '', list = null, code = null, codeLang = '', para = [];
+    function fp() { if (para.length) { html += '<p dir="auto">' + para.join('<br>') + '</p>'; para = []; } }
+    function fl() { if (list) { html += '</' + list + '>'; list = null; } }
+    for (var i = 0; i < lines.length; i++) {
+      var raw = lines[i];
+      if (code !== null) {
+        if (/^```/.test(raw)) { html += codeHtml(code, codeLang); code = null; }
+        else code.push(raw);
+        continue;
+      }
+      if (/^```/.test(raw)) { fp(); fl(); code = []; codeLang = raw.replace(/^```/, '').trim().toLowerCase(); continue; }
+      var h = /^(#{1,4})\s+(.*)$/.exec(raw);
+      if (h) { fp(); fl(); var n = Math.min(h[1].length + 1, 5); html += '<h' + n + ' dir="auto">' + inline(h[2]) + '</h' + n + '>'; continue; }
+      var ul = /^\s*[-*•]\s+(.*)$/.exec(raw), ol = /^\s*(\d+)[.)]\s+(.*)$/.exec(raw);
+      if (ul || ol) {
+        fp(); var t = ul ? 'ul' : 'ol';
+        if (list !== t) { fl(); html += '<' + t + '>'; list = t; }
+        html += '<li dir="auto">' + inline(ul ? ul[1] : ol[2]) + '</li>';
+        continue;
+      }
+      if (!raw.trim()) { fp(); fl(); continue; }
+      if (/^---+$/.test(raw.trim())) { fp(); fl(); html += '<hr>'; continue; }
+      fl(); para.push(inline(raw.trim()));
+    }
+    if (code !== null) html += codeLang === 'chart' ? '<div class="chartbox wait">يجهّز الرسم البياني…</div>' : codeHtml(code, codeLang);
+    fp(); fl();
+    return html;
+  }
+  /* CHARTS:END */
+  function copyText(text, btn, srcEl) {
+    var done = function () { var o = btn.textContent; btn.textContent = 'تم النسخ'; setTimeout(function () { btn.textContent = o; }, 1400); };
+    var fallback = function () {
+      try { var r = document.createRange(); r.selectNodeContents(srcEl); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = 'حدّد النص وانسخه'; } catch (e) {}
+    };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  }
+
+  /* ---------- reading files ---------- */
+  var loaded = {};
+  function loadScript(url) {
+    if (loaded[url]) return loaded[url];
+    loaded[url] = new Promise(function (res, rej) {
+      var s = document.createElement('script'); s.src = url; s.onload = res; s.onerror = function () { rej(new Error('load')); };
+      document.head.appendChild(s);
+    });
+    return loaded[url];
+  }
+  var PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  var PDFW = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  function clean(t) { return t.replace(/[ \t ]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim(); }
+  function unxml(t) { return t.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&'); }
+  async function pdfText(f) {
+    await loadScript(PDFJS);
+    var lib = window.pdfjsLib; lib.GlobalWorkerOptions.workerSrc = PDFW;
+    var doc = await lib.getDocument({ data: await f.arrayBuffer() }).promise;
+    var out = '', max = Math.min(doc.numPages, 120);
+    for (var i = 1; i <= max; i++) {
+      var pg = await doc.getPage(i), tc = await pg.getTextContent();
+      out += tc.items.map(function (x) { return x.str; }).join(' ') + '\n\n';
+      if (out.length > MAXCH) break;
+    }
+    return out;
+  }
+  async function docxText(f) {
+    var z = await JSZip.loadAsync(await f.arrayBuffer());
+    var xml = await z.file('word/document.xml').async('string');
+    return unxml(xml.replace(/<\/w:p>/g, '\n').replace(/<w:tab\/>/g, ' ').replace(/<[^>]+>/g, ''));
+  }
+  async function pptxText(f) {
+    var z = await JSZip.loadAsync(await f.arrayBuffer());
+    var names = Object.keys(z.files).filter(function (n) { return /^ppt\/slides\/slide\d+\.xml$/.test(n); })
+      .sort(function (a, b) { return parseInt(a.match(/\d+/)[0], 10) - parseInt(b.match(/\d+/)[0], 10); });
+    var out = '';
+    for (var i = 0; i < names.length; i++) {
+      var xml = await z.file(names[i]).async('string');
+      var parts = [], m, re = /<a:t[^>]*>([^<]*)<\/a:t>/g;
+      while ((m = re.exec(xml))) parts.push(m[1]);
+      out += 'شريحة ' + (i + 1) + ': ' + unxml(parts.join(' ')) + '\n\n';
+    }
+    return out;
+  }
+  async function readFile(f) {
+    var n = f.name.toLowerCase();
+    if (f.type.indexOf('image/') === 0) return { kind: 'image', blob: f };
+    var t;
+    if (/\.pdf$/.test(n)) t = await pdfText(f);
+    else if (/\.docx$/.test(n)) t = await docxText(f);
+    else if (/\.pptx$/.test(n)) t = await pptxText(f);
+    else if (/\.(txt|md|csv|json|tex|html?)$/.test(n) || f.type.indexOf('text/') === 0) t = await f.text();
+    else throw new Error('unsupported');
+    t = clean(t);
+    if (t.length < 20) throw new Error('empty');
+    return { kind: 'text', text: t.slice(0, MAXCH) };
+  }
+
+  /* attachment widget: input + chips, returns accessors */
+  function Attach(input, chipsEl, dropEl) {
+    var items = [], seq = 0;
+    function render() {
+      chipsEl.innerHTML = items.map(function (it) {
+        return '<span class="chip' + (it.err ? ' err' : '') + '"><span dir="auto">' + esc(it.name) + '</span>' +
+          (it.note ? '<small>' + esc(it.note) + '</small>' : '') +
+          '<button type="button" data-rm="' + it.id + '" aria-label="إزالة ' + esc(it.name) + '">×</button></span>';
+      }).join('');
+    }
+    chipsEl.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-rm]'); if (!b) return;
+      items = items.filter(function (x) { return String(x.id) !== b.dataset.rm; }); render();
+    });
+    async function add(files) {
+      for (var i = 0; i < files.length; i++) {
+        var f = files[i], it = { id: ++seq, name: f.name, note: 'جارٍ القراءة…' };
+        items.push(it); render();
+        try {
+          if (f.type.indexOf('image/') === 0 && !imgLimits) { await sampleP; if (!imgLimits) throw new Error('noimg'); }
+          var r = await readFile(f);
+          it.kind = r.kind; it.text = r.text; it.blob = r.blob;
+          it.note = r.kind === 'image' ? 'صورة' : (r.text.length > 1000 ? Math.round(r.text.length / 1000) + ' ألف حرف' : r.text.length + ' حرف');
+        } catch (e) {
+          it.err = true;
+          it.note = e.message === 'noimg' ? 'الصور غير متاحة الآن'
+            : e.message === 'empty' ? 'لا يوجد نص قابل للقراءة. جرّب صورة أو الصق النص'
+            : e.message === 'unsupported' ? 'نوع غير مدعوم' : 'تعذّرت القراءة. جرّب PDF آخر أو الصق النص';
+        }
+        render();
+      }
+    }
+    input.addEventListener('change', function () { var fl = Array.prototype.slice.call(input.files); input.value = ''; add(fl); });
+    if (dropEl) {
+      ['dragenter', 'dragover'].forEach(function (ev) { dropEl.addEventListener(ev, function (e) { e.preventDefault(); dropEl.classList.add('over'); }); });
+      ['dragleave', 'drop'].forEach(function (ev) { dropEl.addEventListener(ev, function (e) { e.preventDefault(); dropEl.classList.remove('over'); }); });
+      dropEl.addEventListener('drop', function (e) { if (e.dataTransfer && e.dataTransfer.files.length) add(Array.prototype.slice.call(e.dataTransfer.files)); });
+    }
+    return {
+      text: function () { return items.filter(function (x) { return x.kind === 'text'; }).map(function (x) { return '--- ' + x.name + ' ---\n' + x.text; }).join('\n\n').slice(0, MAXCH); },
+      images: function () {
+        var max = imgLimits ? imgLimits.maxCount : 0;
+        return items.filter(function (x) { return x.kind === 'image'; }).map(function (x) { return x.blob; }).slice(0, max);
+      },
+      dropImages: function () { items = items.filter(function (x) { return x.kind !== 'image'; }); render(); },
+      busy: function () { return items.some(function (x) { return x.note === 'جارٍ القراءة…'; }); }
+    };
+  }
+
+  /* ---------- navigation ---------- */
+  function show(v) {
+    if (!document.getElementById('v-' + v)) v = 'home';
+    $$('.view').forEach(function (x) { x.hidden = x.id !== 'v-' + v; });
+    $$('.tab').forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.go === v)); });
+    try { history.replaceState(null, '', '#' + v); } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); show(g.dataset.go); }
+  });
+
+  /* =========================================================
+     QUIZ
+     ========================================================= */
+  var qa = Attach($('#q-file'), $('#q-chips'), $('#q-drop'));
+  var quiz = { qs: [], done: false };
+  var qCtl = null;
+  var SAMPLE_TEXT = 'التمثيل الضوئي هو العملية التي تصنع بها النباتات الخضراء غذاءها باستخدام ضوء الشمس. يحدث في البلاستيدات الخضراء التي تحتوي على صبغة الكلوروفيل، وهي الصبغة التي تمتص الضوء الأحمر والأزرق وتعكس الأخضر، ولذلك تبدو الأوراق خضراء. تأخذ النبتة غاز ثاني أكسيد الكربون من الهواء عبر الثغور، وتمتص الماء من التربة بجذورها. تنقسم العملية إلى مرحلتين: التفاعلات الضوئية في أغشية الثايلاكويد حيث يتحلل الماء وينتج الأكسجين وتُخزَّن الطاقة في ATP وNADPH، ثم دورة كالفن في الحشوة (الستروما) حيث تُستخدم هذه الطاقة لتحويل ثاني أكسيد الكربون إلى سكر الجلوكوز. يُستخدم الجلوكوز في النمو والتنفس، ويُخزَّن الفائض على شكل نشا. وتتأثر سرعة التمثيل الضوئي بشدة الإضاءة وتركيز ثاني أكسيد الكربون ودرجة الحرارة.';
+
+  $('#q-sample').addEventListener('click', function () { $('#q-paste').value = SAMPLE_TEXT; say($('#q-status'), 'تمت إضافة نص تجريبي عن التمثيل الضوئي.', ''); });
+  $('#q-stop').addEventListener('click', function () { if (qCtl) qCtl.abort(); });
+  $('#q-go').addEventListener('click', genQuiz);
+
+  function normQ(q) {
+    if (!q || typeof q.q !== 'string') return null;
+    var t = q.type;
+    if (t === 'tf') {
+      var a = (q.answer === true || q.answer === 0 || q.answer === '0') ? 0 : 1;
+      if (q.answer === false) a = 1;
+      return { type: 'tf', q: q.q, options: ['صح', 'خطأ'], answer: a, explain: String(q.explain || '') };
+    }
+    if (t === 'mcq') {
+      if (!Array.isArray(q.options) || q.options.length < 2) return null;
+      var ans = Number(q.answer);
+      if (!(ans >= 0 && ans < q.options.length)) return null;
+      return { type: 'mcq', q: q.q, options: q.options.map(String), answer: ans, explain: String(q.explain || '') };
+    }
+    if (t === 'short') return { type: 'short', q: q.q, answer: String(q.answer || ''), explain: String(q.explain || '') };
+    return null;
+  }
+
+  async function genQuiz() {
+    var st = $('#q-status'), go = $('#q-go'), stop = $('#q-stop');
+    if (qa.busy()) { say(st, 'انتظر حتى ينتهي قراءة الملف.', 'err'); return; }
+    var text = (($('#q-paste').value.trim() + '\n\n' + qa.text()).trim()).slice(0, MAXCH);
+    var imgs = qa.images(), topic = $('#q-topic').value.trim();
+    if (!text && !imgs.length && !topic) { say(st, 'أرفق ملفًا أو الصق نصًا أو اكتب موضوعًا أولًا.', 'err'); return; }
+    var typeNames = { mcq: 'اختيار من متعدد (4 خيارات)', tf: 'صح أو خطأ', short: 'إجابة قصيرة' };
+    var types = ['mcq', 'tf', 'short'].filter(function (t) { return $('#q-t-' + t).checked; });
+    if (!types.length) { say(st, 'اختر نوعًا واحدًا على الأقل من الأسئلة.', 'err'); return; }
+    var n = +$('#q-n').value, diff = $('#q-d').value;
+    var s = await needSample(st); if (!s) return;
+    qCtl = new AbortController(); setBusy(go, stop, true); say(st, 'جارٍ التحضير…', '');
+    var prompt = 'أنت معلّم متمرّس يكتب اختبارات للطلاب.\n' +
+      'اكتب ' + n + ' أسئلة بمستوى "' + diff + '" ' +
+      (text ? 'اعتمادًا على المادة أدناه فقط، ولا تسأل عن شيء غير موجود فيها.' : (imgs.length ? 'اعتمادًا على الصور المرفقة (هي مادة الطالب) فقط.' : 'عن الموضوع المذكور بمعلومات صحيحة ومتفق عليها.')) + '\n' +
+      (topic ? 'ركّز على هذا الموضوع: ' + topic + '\n' : '') +
+      'أنواع الأسئلة المسموحة: ' + types.map(function (t) { return typeNames[t]; }).join('، ') + '. نوّع بينها إن تعددت.\n' +
+      'اكتب بلغة المادة (العربية إن لم تتضح). التزم بلغة واحدة ولا تُدخل كلمات من لغات أخرى، ما عدا المصطلحات العلمية بين قوسين.\n' +
+      'في الرياضيات والفيزياء والكيمياء وما شابهها: ركّز على فهم المفاهيم والتعريفات والخصائص والشروط والأخطاء الشائعة ومتى نستخدم كل قانون ولماذا، بأسئلة نظرية. تجنّب المعادلات الطويلة والعمليات الحسابية المعقدة. وإن احتجت حسابًا فليكن بسيطًا بخطوة واحدة وبأرقام صغيرة.\n' +
+      'أرجع مصفوفة JSON فقط، وكل عنصر بأحد هذه الأشكال:\n' +
+      '{"type":"mcq","q":"نص السؤال","options":["..","..","..",".."],"answer":2,"explain":"لماذا هذا هو الجواب الصحيح، في جملة أو جملتين"}\n' +
+      '{"type":"tf","q":"عبارة تُحكم عليها","answer":0,"explain":".."}   (answer: 0 تعني صح، و1 تعني خطأ)\n' +
+      '{"type":"short","q":"سؤال","answer":"الإجابة النموذجية في جملة أو جملتين","explain":"النقاط التي يجب ذكرها"}\n' +
+      'قواعد: في mcq يكون answer رقم الخيار الصحيح بدءًا من 0، ووزّع موضعه بين الخيارات. اجعل الخيارات الخاطئة معقولة. لا تستخدم LaTeX. لا تكرر الأفكار.' +
+      (text ? '\n\nالمادة:\n<<<\n' + text + '\n>>>' : '');
+    var opts = {
+      signal: qCtl.signal,
+      onText: function (u) { var k = (u.text.match(/"q"\s*:/g) || []).length; say(st, 'يكتب السؤال ' + Math.min(Math.max(k, 1), n) + ' من ' + n + '…', ''); }
+    };
+    if (imgs.length) opts.images = imgs;
+    try {
+      var res = await s.json(prompt, opts);
+      var arr = Array.isArray(res) ? res : (res && res.questions) || [];
+      var qs = arr.map(normQ).filter(Boolean);
+      if (!qs.length) throw { code: 'invalid_json' };
+      quiz = { qs: qs, done: false };
+      say(st, 'جاهز. عدد الأسئلة: ' + qs.length, 'ok');
+      renderQuiz();
+      $('#q-area').scrollIntoView({ block: 'start' });
+    } catch (e) {
+      var m = errCopy(e); say(st, m, m ? 'err' : '');
+    } finally { setBusy(go, stop, false); qCtl = null; }
+  }
+
+  var TYPE_LABEL = { mcq: 'اختيار من متعدد', tf: 'صح أو خطأ', short: 'إجابة قصيرة' };
+  function renderQuiz() {
+    var box = $('#q-area'), qs = quiz.qs;
+    box.innerHTML = qs.map(function (q, i) {
+      var body;
+      if (q.type === 'short') body = '<textarea id="qa' + i + '" rows="3" dir="auto" placeholder="اكتب إجابتك"></textarea>';
+      else body = '<div class="opts" role="radiogroup" aria-label="خيارات السؤال ' + (i + 1) + '">' + q.options.map(function (o, j) {
+        return '<label class="opt" data-j="' + j + '"><input type="radio" name="q' + i + '" value="' + j + '"><i class="dot"></i><span dir="auto">' + esc(o) + '</span></label>';
+      }).join('') + '</div>';
+      return '<article class="qcard" data-i="' + i + '"><div class="qmeta"><span class="tag">' + TYPE_LABEL[q.type] + '</span><span class="qn">' + (i + 1) + ' / ' + qs.length + '</span></div>' +
+        '<h3 dir="auto">' + esc(q.q) + '</h3>' + body + '<div class="qfb" hidden></div></article>';
+    }).join('') +
+      '<div class="qfoot" id="q-foot"><span id="q-count" class="status"></span><button class="btn" id="q-finish" type="button">أنهِ الاختبار</button></div>';
+    updateCount();
+  }
+  function answered() {
+    var c = 0;
+    quiz.qs.forEach(function (q, i) {
+      if (q.type === 'short') { var t = $('#qa' + i); if (t && t.value.trim()) c++; }
+      else if ($('#q-area input[name=q' + i + ']:checked')) c++;
+    });
+    return c;
+  }
+  function updateCount() { var c = $('#q-count'); if (c && !quiz.done) c.textContent = 'أجبت عن ' + answered() + ' من ' + quiz.qs.length; }
+  $('#q-area').addEventListener('input', updateCount);
+  $('#q-area').addEventListener('change', updateCount);
+  $('#q-area').addEventListener('click', function (e) {
+    if (e.target.closest('#q-finish')) finishQuiz();
+    if (e.target.closest('#q-retry')) { renderQuiz(); $('#q-area').scrollIntoView({ block: 'start' }); }
+    if (e.target.closest('#q-new')) { $('#q-go').scrollIntoView({ block: 'center' }); }
+    if (e.target.closest('#q-explain')) askTutor(quiz.mistakes || '');
+  });
+
+  function fmt(n) { return (Math.round(n * 2) / 2).toString().replace('.', '٫'); }
+  async function finishQuiz() {
+    if (quiz.done) return; quiz.done = true;
+    var box = $('#q-area'), qs = quiz.qs;
+    box.querySelectorAll('input,textarea').forEach(function (x) { x.disabled = true; });
+    box.querySelectorAll('.opts').forEach(function (x) { x.classList.add('locked'); });
+    var score = 0, total = 0, wrong = [], shorts = [];
+    qs.forEach(function (q, i) {
+      var card = box.querySelector('.qcard[data-i="' + i + '"]'), fb = card.querySelector('.qfb');
+      fb.hidden = false;
+      if (q.type === 'short') {
+        var a = ($('#qa' + i).value || '').trim();
+        q.student = a;
+        fb.innerHTML = '<div class="k">إجابتك</div><div dir="auto">' + (a ? esc(a) : 'لم تُجب') + '</div><div class="k">الإجابة النموذجية</div><div dir="auto">' + esc(q.answer) + '</div>' + (q.explain ? '<div class="k">ملاحظة</div><div dir="auto">' + esc(q.explain) + '</div>' : '');
+        if (!a) { total++; wrong.push(q); fb.insertAdjacentHTML('afterbegin', '<div class="verdict bad">لم تُجب</div>'); }
+        else shorts.push(i);
+        return;
+      }
+      var sel = box.querySelector('input[name=q' + i + ']:checked'), v = sel ? +sel.value : -1;
+      total++;
+      var ok = v === q.answer; if (ok) score++; else wrong.push(Object.assign({ chosen: v }, q));
+      card.querySelectorAll('.opt').forEach(function (o) {
+        var j = +o.dataset.j;
+        if (j === q.answer) o.classList.add('ok'); else if (j === v) o.classList.add('bad');
+      });
+      fb.innerHTML = '<div class="verdict ' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'إجابة صحيحة' : (v < 0 ? 'لم تُجب. الصحيح: ' : 'إجابة خاطئة. الصحيح: ') + (ok ? '' : esc(q.options[q.answer]))) + '</div>' + (q.explain ? '<div dir="auto">' + esc(q.explain) + '</div>' : '');
+    });
+    var foot = $('#q-foot');
+    if (shorts.length) {
+      foot.innerHTML = '<span class="status">يصحّح Claude إجاباتك القصيرة…</span>';
+      var s = await sampleP, graded = null;
+      if (s) {
+        try {
+          var payload = shorts.map(function (i) { return { i: i, question: qs[i].q, modelAnswer: qs[i].answer, studentAnswer: qs[i].student }; });
+          graded = await s.json('أنت معلّم يصحّح إجابات قصيرة بإنصاف. لكل عنصر قارن إجابة الطالب بالإجابة النموذجية بحسب المعنى لا اللفظ. أرجع مصفوفة JSON فقط بنفس عدد العناصر، كل عنصر على الشكل {"i":رقم السؤال كما أُعطي,"score":0 أو 0.5 أو 1,"feedback":"جملة أو جملتان للطالب: ماذا أصاب وماذا ينقصه"}.\n\n' + JSON.stringify(payload), { modelTier: 'quick' });
+        } catch (e) { graded = null; }
+      }
+      shorts.forEach(function (i) {
+        var g = graded && Array.isArray(graded) ? graded.filter(function (x) { return x && +x.i === i; })[0] : null;
+        var fb = box.querySelector('.qcard[data-i="' + i + '"] .qfb');
+        if (g) {
+          var sc = Math.max(0, Math.min(1, +g.score || 0)); total++; score += sc;
+          if (sc < 1) wrong.push(qs[i]);
+          fb.insertAdjacentHTML('afterbegin', '<div class="verdict ' + (sc === 1 ? 'ok' : sc > 0 ? 'mid' : 'bad') + '">' + (sc === 1 ? 'صحيحة' : sc > 0 ? 'صحيحة جزئيًا' : 'غير صحيحة') + '</div><div dir="auto">' + esc(g.feedback || '') + '</div>');
+        } else fb.insertAdjacentHTML('afterbegin', '<div class="verdict mid">تعذّر التصحيح التلقائي. قارن بإجابتك بالنموذج.</div>');
+      });
+    }
+    var pct = total ? score / total : 0;
+    var msg = pct >= .85 ? 'ممتاز. أنت متمكّن من هذه المادة.' : pct >= .6 ? 'جيد. راجع الأسئلة الخاطئة وأعد المحاولة.' : 'تحتاج مراجعة. اطلب من المعلّم شرح ما أخطأت فيه.';
+    quiz.mistakes = wrong.length ? 'أخطأت في هذه الأسئلة من اختباري. اشرحها لي واحدًا واحدًا بطريقة بسيطة:\n\n' + wrong.map(function (q, k) {
+      var mine = q.type === 'short' ? (q.student || 'لم أجب') : (q.chosen >= 0 && q.options ? q.options[q.chosen] : 'لم أجب');
+      var right = q.type === 'short' ? q.answer : q.options[q.answer];
+      return (k + 1) + '. ' + q.q + '\nإجابتي: ' + mine + '\nالصحيح: ' + right;
+    }).join('\n\n') : '';
+    box.insertAdjacentHTML('afterbegin', '<div class="result" id="q-result"><div class="score">' + fmt(score) + ' / ' + total + '</div><p>' + msg + '</p><div class="actions">' +
+      (quiz.mistakes ? '<button class="btn" id="q-explain" type="button">اشرح لي أخطائي</button>' : '') +
+      '<button class="btn ghost" id="q-retry" type="button">أعد المحاولة</button><button class="btn ghost" id="q-new" type="button">اختبار جديد</button></div></div>');
+    foot.remove();
+    box.scrollIntoView({ block: 'start' });
+  }
+
+  /* =========================================================
+     TUTOR
+     ========================================================= */
+  var ta = Attach($('#t-file'), $('#t-chips'), null);
+  var tutor = { turns: store.get('brighter.chat', []), busy: false, ctl: null };
+  var msgsEl = $('#t-msgs');
+  var STARTERS = ['اشرح لي فكرة التمثيل الضوئي ببساطة', 'ما الفرق بين السرعة والتسارع؟', 'كيف أكتب فقرة قوية في مقال؟', 'ساعدني أفهم المعادلات من الدرجة الثانية', 'ارسم لي منحنى الدالة y = x² − 4'];
+
+  function rules() {
+    var ctx = ta.text();
+    return 'أنت "معلّم مَدارِك"، معلّم خصوصي صبور ودقيق. مستوى الطالب في هذا الموضوع: ' + $('#t-level').value + '.\n' +
+      'اكتب بالعربية الواضحة، أو بلغة الطالب إن كتب بلغة أخرى. التزم بلغة واحدة طوال الرد، ولا تُدخل كلمات أو حروفًا من لغات أخرى (كالصينية أو الروسية أو الهندية)، ويجوز المصطلح العلمي بالإنجليزية بين قوسين.\n' +
+      '- ابدأ بالفكرة الأساسية في جملتين، ثم فصّل خطوة بخطوة مع مثال من الحياة اليومية.\n' +
+      '- اجعل الردّ قصيرًا (حتى نحو 180 كلمة) ما لم يطلب الطالب التفصيل.\n' +
+      '- اختم بسؤال واحد قصير يختبر فهم الطالب، ولا تذكر جوابه في الرسالة نفسها. وعندما يجيب، قيّم جوابه بلطف وصحّح أي فهم خاطئ.\n' +
+      '- لا تستخدم LaTeX. اكتب الرموز بحروف عادية مثل x² و √ و ÷ و ×.\n' +
+      '- إن لم تكن متأكدًا من معلومة فقل ذلك ولا تختلق.\n' +
+      '- استخدم العناوين والقوائم بقدر الحاجة فقط.\n' +
+      '- قد يرفق الطالب صورًا مع رسالته، وهي جزء من سؤاله.\n' +
+      '- يمكنك رسم رسوم بيانية. عندما يطلب الطالب رسمًا أو مخططًا أو منحنى دالة، أو حين يوضّح الرسم الفكرة بجلاء، ضع كتلة كود لغتها chart تحتوي JSON صحيحًا فقط (أرقام لا نصوص)، ثم اشرح الرسم بجملة أو جملتين. لا ترسم بالنص أو بالرموز، ولا تستخدم صيغة أخرى للرسم. الأشكال المدعومة:\n' +
+      '```chart\n{"type":"bar","title":"..","xLabel":"..","yLabel":"..","labels":["أ","ب"],"series":[{"name":"..","values":[3,5]}]}\n```\n' +
+      '(type يمكن أن يكون bar أو line بنفس الحقول)\n' +
+      '```chart\n{"type":"pie","title":"..","labels":["أ","ب"],"series":[{"name":"..","values":[40,60]}]}\n```\n' +
+      '```chart\n{"type":"scatter","title":"..","xLabel":"..","yLabel":"..","series":[{"name":"..","points":[[1,2],[2,4]]}]}\n```\n' +
+      '```chart\n{"type":"function","title":"..","exprs":["x^2-4"],"from":-5,"to":5}\n```\n' +
+      '```chart\n{"type":"parametric","title":"دائرة نصف قطرها 3","x":"3*cos(t)","y":"3*sin(t)","from":0,"to":6.2832}\n```\n' +
+      '```chart\n{"type":"line","title":"..","xLabel":"..","yLabel":"..","series":[{"name":"..","points":[[0,0],[1,4],[2,8]]}]}\n```\n' +
+      '(الثالث خط يمرّ بنقاط x وy رقمية، مناسب للفيزياء مثل السرعة والزمن)\n' +
+      'في الدوال استخدم المتغير x فقط مع العمليات + - * / ^ والأقواس والدوال sin cos tan sqrt abs ln log exp والثوابت pi و e. للدوال استخدم دائمًا النوع function ولا تحسب النقاط بنفسك، وللدائرة والقطع الناقص وكل منحنى مغلق استخدم parametric. تحقق من صحة كل رقم قبل كتابته وأن عدد القيم يساوي عدد التسميات. لا تخترع بيانات للرسم: استخدم أرقام الطالب أو حقائق معروفة، ونبّه إن كانت تقريبية.' +
+      (ctx ? '\n\nمادة الطالب (اشرح منها واستند إليها عند الحاجة):\n<<<\n' + ctx.slice(0, 40000) + '\n>>>' : '');
+  }
+  function renderChat() {
+    if (!tutor.turns.length) {
+      msgsEl.innerHTML = '<div class="empty"><p>ابدأ بسؤال، أو اختر أحد هذه الأمثلة:</p><div class="sugg">' +
+        STARTERS.map(function (s) { return '<button type="button" data-s="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div></div>';
+      return;
+    }
+    msgsEl.innerHTML = tutor.turns.map(function (t) {
+      return t.role === 'user' ? '<div class="msg user" dir="auto">' + esc(t.content) + '</div>' : '<div class="msg assistant md">' + md(t.content) + '</div>';
+    }).join('');
+  }
+  msgsEl.addEventListener('click', function (e) { var b = e.target.closest('[data-s]'); if (b) sendTutor(b.dataset.s); });
+  $('#t-clear').addEventListener('click', function () {
+    if (tutor.ctl) tutor.ctl.abort();
+    tutor.turns = []; store.set('brighter.chat', []); renderChat(); say($('#t-status'), '', '');
+  });
+  $('#t-stop').addEventListener('click', function () { if (tutor.ctl) tutor.ctl.abort(); });
+  $('#t-send').addEventListener('click', function () { sendTutor($('#t-input').value); });
+  $('#t-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); sendTutor($('#t-input').value); }
+  });
+
+  async function sendTutor(text) {
+    var st = $('#t-status');
+    text = (text || '').trim();
+    if (!text || tutor.busy) return;
+    if (ta.busy()) { say(st, 'انتظر حتى ينتهي قراءة الملف.', 'err'); return; }
+    var s = await needSample(st); if (!s) return;
+    tutor.busy = true; tutor.ctl = new AbortController();
+    $('#t-send').disabled = true; $('#t-stop').hidden = false; say(st, '', '');
+    $('#t-input').value = '';
+    tutor.turns.push({ role: 'user', content: text });
+    renderChat();
+    var bub = document.createElement('div'); bub.className = 'msg assistant md wait'; bub.textContent = 'يفكّر…';
+    msgsEl.appendChild(bub); bub.scrollIntoView({ block: 'nearest' });
+    var hist = tutor.turns.slice(-16);
+    while (hist.length && hist[0].role !== 'user') hist.shift();
+    var input = [{ role: 'user', content: rules() }].concat(hist);
+    var imgs = ta.images(), opts = {
+      cache: false, signal: tutor.ctl.signal,
+      onText: function (u) { bub.classList.remove('wait'); bub.innerHTML = md(u.text); }
+    };
+    if (imgs.length) opts.images = imgs;
+    try {
+      var r = await s(input, opts);
+      tutor.turns.push({ role: 'assistant', content: r.text });
+      if (r.truncated) say(st, 'الرد طويل وقُطع. اطلب المتابعة بقولك: أكمل.', '');
+    } catch (e) {
+      if (e && e.text) tutor.turns.push({ role: 'assistant', content: e.text });
+      var m = errCopy(e); if (m) say(st, m, 'err');
+    } finally {
+      ta.dropImages();
+      tutor.busy = false; tutor.ctl = null;
+      $('#t-send').disabled = false; $('#t-stop').hidden = true;
+      store.set('brighter.chat', tutor.turns.slice(-30));
+      renderChat();
+      var last = msgsEl.lastElementChild; if (last) last.scrollIntoView({ block: 'nearest' });
+    }
+  }
+  function askTutor(text) {
+    if (!text) return;
+    show('tutor');
+    sendTutor(text);
+  }
+  renderChat();
+
+  /* =========================================================
+     HOMEWORK
+     ========================================================= */
+  var ha = Attach($('#hw-file'), $('#hw-chips'), $('#hw-drop'));
+  var hwMode = 'solve', hwCtl = null, hwText = '';
+  $('#hw-mode').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-m]'); if (!b) return;
+    hwMode = b.dataset.m;
+    $$('#hw-mode button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    $('#hw-ans-wrap').hidden = hwMode !== 'check';
+    $('#hw-go').textContent = hwMode === 'check' ? 'صحّح' : hwMode === 'hint' ? 'أعطني تلميحات' : 'اشرح الحل';
+  });
+  $('#hw-go').textContent = 'اشرح الحل';
+  $('#hw-stop').addEventListener('click', function () { if (hwCtl) hwCtl.abort(); });
+  $('#hw-copy').addEventListener('click', function () { copyText(hwText, $('#hw-copy'), $('#hw-out')); });
+  $('#hw-ask').addEventListener('click', function () {
+    askTutor('لم أفهم هذا الجزء من الواجب. اشرحه لي من البداية بطريقة أبسط:\n\n' + hwText.slice(0, 4000));
+  });
+  $('#hw-go').addEventListener('click', async function () {
+    var st = $('#hw-status'), go = $('#hw-go'), stop = $('#hw-stop');
+    if (ha.busy()) { say(st, 'انتظر حتى ينتهي قراءة الملف.', 'err'); return; }
+    var q = $('#hw-q').value.trim(), a = $('#hw-a').value.trim(), subj = $('#hw-subject').value.trim();
+    var ctx = ha.text(), imgs = ha.images();
+    if (!q && !ctx && !imgs.length) { say(st, 'اكتب نص الواجب أو أرفق صورة له.', 'err'); return; }
+    if (hwMode === 'check' && !a && !imgs.length) { say(st, 'اكتب حلّك أو أرفق صورة له ليتم تصحيحه.', 'err'); return; }
+    var s = await needSample(st); if (!s) return;
+    var head = 'أنت معلّم يساعد طالبًا في واجبه' + (subj ? ' في مادة ' + subj : '') + '. اكتب بلغة الطالب (العربية افتراضيًا) والتزم بلغة واحدة دون إدخال كلمات من لغات أخرى، ولا تستخدم LaTeX (اكتب x² و √ و ÷ بحروف عادية). كن دقيقًا، وإن كان السؤال ناقصًا أو غامضًا فاذكر ما افترضته.\n';
+    var shape;
+    if (hwMode === 'solve') shape = 'حلّ الواجب واشرحه ليتعلم الطالب الطريقة. استخدم هذه العناوين بالترتيب (بصيغة ## عنوان):\n## الفكرة\n(جملة أو جملتان عن المفهوم المطلوب)\n## الحل خطوة بخطوة\n(كل خطوة مع سبب فعلها)\n## الجواب النهائي\n## جرّب بنفسك\n(مسألة مشابهة واحدة دون حلّها)';
+    else if (hwMode === 'hint') shape = 'لا تكتب الجواب النهائي ولا الحل الكامل. أعط ثلاثة تلميحات متدرجة من العام إلى الأدق بعناوين ## تلميح 1 و## تلميح 2 و## تلميح 3. ثم اختم بسؤال يطلب من الطالب أن يجرّب الخطوة الأولى بنفسه.';
+    else shape = 'الطالب كتب حلًا (نصًا و/أو صورة مرفقة) وتريد تصحيحه بإنصاف ولطف. استخدم هذه العناوين (بصيغة ## عنوان):\n## التقييم\n(درجة من 10 وجملة تلخّص المستوى)\n## ما أصبت فيه\n## الأخطاء\n(لكل خطأ: أين وقع، ولماذا هو خطأ، والصحيح)\n## الحل الصحيح\n(باختصار، فقط إن لزم)\n## نصيحة\n(نصيحة واحدة لتجنب الخطأ نفسه)';
+    var body = head + shape + '\n\n' +
+      (q ? 'نص الواجب:\n<<<\n' + q + '\n>>>\n' : '') +
+      (ctx ? 'مرفقات نصية:\n<<<\n' + ctx + '\n>>>\n' : '') +
+      (a ? 'حلّ الطالب:\n<<<\n' + a + '\n>>>\n' : '') +
+      (imgs.length ? 'الصور المرفقة هي ' + (hwMode === 'check' ? 'الواجب وحلّ الطالب' : 'الواجب') + '.' : '');
+    hwCtl = new AbortController(); setBusy(go, stop, true); say(st, 'جارٍ التحضير…', '');
+    var out = $('#hw-out'); $('#hw-outcard').hidden = true;
+    var opts = {
+      signal: hwCtl.signal, cache: false,
+      onText: function (u) { hwText = u.text; $('#hw-outcard').hidden = false; out.innerHTML = md(u.text); say(st, 'يكتب…', ''); }
+    };
+    if (imgs.length) opts.images = imgs;
+    try {
+      var r = await s(body, opts);
+      hwText = r.text; out.innerHTML = md(r.text);
+      say(st, r.truncated ? 'قُطع الرد لطوله. جرّب واجبًا أقصر.' : 'تم.', r.truncated ? '' : 'ok');
+    } catch (e) {
+      if (e && e.text) { hwText = e.text; out.innerHTML = md(e.text); } else { $('#hw-outcard').hidden = true; }
+      var m = errCopy(e); say(st, m, m ? 'err' : '');
+    } finally { setBusy(go, stop, false); hwCtl = null; }
+  });
+
+  /* =========================================================
+     SUMMARY
+     ========================================================= */
+  var sa = Attach($('#s-file'), $('#s-chips'), $('#s-drop'));
+  var sumCtl = null, sumText = '';
+  var SUM_FMT = {
+    bullets: 'نقاط مرتبة تحت عناوين فرعية قصيرة (بصيغة ## عنوان)، وكل نقطة جملة واحدة واضحة تبدأ بالفكرة الأهم.',
+    paragraphs: 'فقرات مترابطة بلا قوائم، لكل فقرة فكرة واحدة، مع عنوان فرعي (## عنوان) لكل فقرتين أو ثلاث إن طال الملخص.',
+    essay: 'مقال متماسك بمقدمة قصيرة وعرض مرتّب وخاتمة، بجمل انتقالية بين الأفكار.',
+    qa: 'قائمة أسئلة وأجوبة للمراجعة السريعة. اكتب كل سؤال بخط عريض (**السؤال؟**) وتحته جوابه في جملة أو جملتين.',
+    terms: 'قائمة بالمصطلحات والتعريفات المهمة. كل عنصر بصيغة: - **المصطلح**: تعريفه في جملة، ثم رتّبها بحسب ورودها في المادة.',
+    quick: 'خلاصة سريعة من ثلاث إلى خمس جمل فقط، تكفي لتتذكر الفكرة العامة.'
+  };
+  var SUM_LEN = { short: 'قصير (نحو 120 إلى 200 كلمة)', medium: 'متوسط (نحو 300 إلى 450 كلمة)', long: 'مفصّل (نحو 600 إلى 900 كلمة)' };
+  $('#s-stop').addEventListener('click', function () { if (sumCtl) sumCtl.abort(); });
+  $('#s-copy').addEventListener('click', function () { copyText(sumText, $('#s-copy'), $('#s-out')); });
+  $('#s-ask').addEventListener('click', function () {
+    askTutor('اشرح لي هذا الملخص بتفصيل أكبر، وابدأ بأهم نقطة فيه:\n\n' + sumText.slice(0, 5000));
+  });
+  $('#s-quiz').addEventListener('click', function () {
+    if (!sumText) return;
+    $('#q-paste').value = sumText;
+    show('quiz');
+    say($('#q-status'), 'أُضيف الملخص كمادة للاختبار. اختر عدد الأسئلة ثم اضغط أنشئ الاختبار.', '');
+  });
+  $('#s-go').addEventListener('click', async function () {
+    var st = $('#s-status'), go = $('#s-go'), stop = $('#s-stop');
+    if (sa.busy()) { say(st, 'انتظر حتى ينتهي قراءة الملف.', 'err'); return; }
+    var text = (($('#s-paste').value.trim() + '\n\n' + sa.text()).trim()).slice(0, MAXCH);
+    var imgs = sa.images(), focus = $('#s-focus').value.trim();
+    if (!text && !imgs.length) { say(st, 'أرفق ملفًا أو الصق نصًا ليتم تلخيصه.', 'err'); return; }
+    var fmt = $('#s-fmt').value, len = $('#s-len').value;
+    var s = await needSample(st); if (!s) return;
+    var prompt = 'أنت معلّم متمرّس يلخّص المواد الدراسية لطالب.\n' +
+      'اعتمد على المادة أدناه فقط ولا تضف معلومات من خارجها، ولا تحذف فكرة جوهرية. احتفظ بالأسماء والأرقام والتواريخ والتعريفات كما وردت.\n' +
+      (focus ? 'ركّز على هذا الجزء أو الموضوع: ' + focus + '\n' : '') +
+      'الشكل المطلوب: ' + SUM_FMT[fmt] + '\n' +
+      (fmt === 'quick' ? '' : 'الطول: ' + SUM_LEN[len] + '\n') +
+      'اكتب بلغة المادة (العربية إن لم تتضح) والتزم بلغة واحدة دون إدخال كلمات من لغات أخرى، ويجوز المصطلح العلمي بين قوسين. لا تستخدم LaTeX. ابدأ بالملخص مباشرة دون مقدمة مثل "إليك الملخص".\n\n' +
+      (text ? 'المادة:\n<<<\n' + text + '\n>>>' : 'المادة هي الصور المرفقة.');
+    sumCtl = new AbortController(); setBusy(go, stop, true); say(st, 'جارٍ التحضير…', '');
+    var out = $('#s-out'); $('#s-outcard').hidden = true;
+    var opts = {
+      signal: sumCtl.signal, cache: false,
+      onText: function (u) { sumText = u.text; $('#s-outcard').hidden = false; out.innerHTML = md(u.text); say(st, 'يكتب الملخص…', ''); }
+    };
+    if (imgs.length) opts.images = imgs;
+    try {
+      var r = await s(prompt, opts);
+      sumText = r.text; out.innerHTML = md(r.text);
+      say(st, r.truncated ? 'قُطع الملخص لطوله. اختر طولًا أقصر أو ملفًا أصغر.' : 'تم.', r.truncated ? '' : 'ok');
+      if (!r.truncated) $('#s-outcard').scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } catch (e) {
+      if (e && e.text) { sumText = e.text; out.innerHTML = md(e.text); } else { $('#s-outcard').hidden = true; }
+      var m = errCopy(e); say(st, m, m ? 'err' : '');
+    } finally { setBusy(go, stop, false); sumCtl = null; }
+  });
+
+  /* =========================================================
+     المجلدات: مجلد لكل مادة، ملفات المحاضرات، القارئ، الخطة، الاختبارات
+     ========================================================= */
+  var C = { courses: [], active: null, loaded: false };
+  var cv = { mode: 'home', tab: 'files', lecId: null, confirm: null, askQuiz: null, busy: false, edit: false, back: null };
+  var cq = null, cCtl = null, cDb = null, cSaveT = null;
+  var cFmtDay = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', { weekday: 'long', day: 'numeric', month: 'long' });
+
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function cIso(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function cFrom(s) { var p = String(s).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function cToday() { var d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+  function daysLeft(c) { return c && c.exam ? Math.round((cFrom(c.exam) - cToday()) / 864e5) : null; }
+  function curC() { for (var i = 0; i < C.courses.length; i++) if (C.courses[i].id === C.active) return C.courses[i]; return null; }
+  function curL(c) { c = c || curC(); if (!c) return null; for (var i = 0; i < c.lectures.length; i++) if (c.lectures[i].id === cv.lecId) return c.lectures[i]; return null; }
+  function qkey(t) { var h = 5381, s = String(t).replace(/\s+/g, ' ').trim(); for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return 'k' + (h >>> 0).toString(36); }
+
+  /* التخزين: IndexedDB (الملفات كبيرة)، مع localStorage احتياطًا لبيانات المواد فقط */
+  function idbOpen() {
+    return new Promise(function (res) {
+      try {
+        var r = indexedDB.open('madarik', 1);
+        r.onupgradeneeded = function () { r.result.createObjectStore('kv'); };
+        r.onsuccess = function () { res(r.result); };
+        r.onerror = function () { res(null); };
+      } catch (e) { res(null); }
+    });
+  }
+  function idbGet(db, k) {
+    return new Promise(function (res) {
+      try { var q = db.transaction('kv').objectStore('kv').get(k); q.onsuccess = function () { res(q.result); }; q.onerror = function () { res(undefined); }; } catch (e) { res(undefined); }
+    });
+  }
+  function idbPut(db, k, v) {
+    return new Promise(function (res) {
+      try { var tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').put(v, k); tx.oncomplete = function () { res(true); }; tx.onerror = tx.onabort = function () { res(false); }; } catch (e) { res(false); }
+    });
+  }
+  function idbDel(db, k) { try { db.transaction('kv', 'readwrite').objectStore('kv').delete(k); } catch (e) {} }
+  function saveC() { clearTimeout(cSaveT); cSaveT = setTimeout(flushC, 120); }
+  function flushC() {
+    var data = { courses: C.courses, active: C.active, last: C.last || null };
+    if (cDb) idbPut(cDb, 'courses', data); else store.set('madarik.courses', data);
+  }
+  window.addEventListener('pagehide', flushC);
+  async function loadC() {
+    var data;
+    cDb = await idbOpen();
+    if (cDb) data = await idbGet(cDb, 'courses');
+    if (!data) data = store.get('madarik.courses', null);
+    if (data && Array.isArray(data.courses)) {
+      C.courses = data.courses; C.active = data.active; C.last = data.last || null;
+      C.courses.forEach(function (c) { c.lectures = c.lectures || []; c.weak = c.weak || []; c.lectures.forEach(function (l) { l.marks = l.marks || []; l.scores = l.scores || []; }); });
+    }
+    C.loaded = true;
+    cRender();
+  }
+
+  function cStats(c) {
+    var up = c.lectures.length, upDone = c.lectures.filter(function (l) { return l.done; }).length, prior = c.prior || 0;
+    var total = Math.max(c.total || 0, prior + up), done = Math.min(total, prior + upDone);
+    return { total: total, done: done, left: total - done, pend: c.lectures.filter(function (l) { return !l.done; }), notUp: Math.max(0, total - prior - up) };
+  }
+  function weakActive(c) { return (c.weak || []).filter(function (w) { return w.streak < 2; }); }
+  function dword(n) { return n === 1 ? 'يوم' : n === 2 ? 'يومان' : n >= 3 && n <= 10 ? n + ' أيام' : n + ' يومًا'; }
+
+  /* شارة أقرب اختبار في الشريط */
+  function updateChip() {
+    var best = null;
+    C.courses.forEach(function (c) { var d = daysLeft(c); if (d != null && d >= 0 && (!best || d < daysLeft(best))) best = c; });
+    $$('.echip').forEach(function (el) {
+      if (!best) { el.classList.remove('on'); el.innerHTML = ''; return; }
+      var d = daysLeft(best);
+      el.classList.add('on'); el.dataset.cid = best.id;
+      el.innerHTML = '<b>' + d + '</b><span>' + (d === 0 ? 'الاختبار اليوم' : 'يوم على الاختبار') + '<small dir="auto">' + esc(best.name) + '</small></span>';
+    });
+  }
+
+  /* ---------- الشاشات ---------- */
+  function cRender() {
+    var root = $('#c-root'); if (!root) return;
+    if (!C.loaded) { root.innerHTML = '<p class="status">جارٍ التحميل…</p>'; return; }
+    var c = curC();
+    if (cv.mode === 'form') root.innerHTML = cFormHtml(cv.edit ? c : null);
+    else if (cv.mode === 'quiz' && cq) root.innerHTML = cQuizHtml();
+    else if (cv.mode === 'read' && c && curL(c)) root.innerHTML = cReadHtml(c, curL(c));
+    else if (cv.mode === 'lec' && c && curL(c)) root.innerHTML = cLecHtml(c, curL(c));
+    else if (cv.mode === 'folder' && c) root.innerHTML = cFolderHtml(c);
+    else { cv.mode = 'home'; root.innerHTML = cHomeHtml(); }
+    updateChip();
+  }
+
+  var C_TIPS = [
+    ['قسّم وقتك', 'ذاكر في جلسات من 25 إلى 40 دقيقة تتخللها استراحة قصيرة، فالتركيز يتراجع بعد ذلك.'],
+    ['اختبر نفسك', 'استرجاع المعلومة من الذاكرة أنفع من إعادة قراءتها. أغلق الملف وحاول أن تشرح ما فهمته.'],
+    ['وزّع المراجعة', 'المراجعة على مرات متباعدة تثبّت المعلومة أكثر من مراجعتها كلها في ليلة واحدة.'],
+    ['ابدأ بالأصعب', 'خصّص أول جلساتك لما لم تفهمه، فذهنك في بدايتها أصفى.'],
+    ['اشرحها بكلماتك', 'إذا استطعت شرح القانون لزميل بلغة بسيطة فقد فهمته فعلًا.'],
+    ['دوّن أخطاءك', 'الخطأ فرصة: ارجع إلى نقاط ضعفك قبل الاختبار فهي أقصر طريق لرفع درجتك.'],
+    ['نم جيدًا', 'النوم الكافي في الليلة التي تسبق الاختبار يرفع التذكّر أكثر من ساعة إضافية من السهر.']
+  ];
+  function cHomeInfo() {
+    var tod = cIso(cToday()), hr = new Date().getHours();
+    var greet = hr < 12 ? 'صباح الخير' : hr < 17 ? 'طاب يومك' : 'مساء الخير';
+    var dateS = new Intl.DateTimeFormat('ar-SA-u-ca-gregory-nu-latn', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
+    var h = '<p class="hello">' + greet + '، اليوم ' + esc(dateS) + '.</p>';
+    if (!C.courses.length) {
+      return h + '<h3 class="sech">كيف تبدأ؟</h3><div class="steps3"><div><b>أنشئ مجلدًا</b><span>اكتب اسم المادة وموعد اختبارها وعدد محاضراتها.</span></div><div><b>ارفع محاضراتك</b><span>ملفات PDF تُحفظ على جهازك لتقرأها وتكتب عليها.</span></div><div><b>ذاكر واختبر نفسك</b><span>يوزّع لك الأيام ويشرح ما أشكل عليك ويتتبّع أخطاءك.</span></div></div>' + cTipHtml();
+    }
+    /* أرقام سريعة */
+    var done = 0, total = 0, weak = 0, sc = [], nextD = null;
+    C.courses.forEach(function (c) {
+      var st = cStats(c); done += st.done; total += st.total; weak += weakActive(c).length;
+      c.lectures.forEach(function (l) { (l.scores || []).forEach(function (x) { sc.push(x.pct); }); });
+      var d = daysLeft(c); if (d != null && d >= 0 && (nextD == null || d < nextD)) nextD = d;
+    });
+    var avg = sc.length ? Math.round(sc.reduce(function (a, b) { return a + b; }, 0) / sc.length) : null;
+    h += '<div class="stats"><div class="stat"><b>' + (nextD == null ? '—' : nextD) + '</b><span>يوم على أقرب اختبار</span></div>' +
+      '<div class="stat"><b>' + done + '/' + total + '</b><span>محاضرات منجزة</span></div>' +
+      '<div class="stat"><b>' + weak + '</b><span>نقاط ضعف تنتظر المراجعة</span></div>' +
+      '<div class="stat"><b>' + (avg == null ? '—' : avg + '%') + '</b><span>متوسط نتائج اختباراتك</span></div></div>';
+    /* متابعة المذاكرة */
+    var lastC = C.last && C.courses.filter(function (c) { return c.id === C.last.cid; })[0];
+    var lastL = lastC && lastC.lectures.filter(function (l) { return l.id === C.last.lid; })[0];
+    if (lastL) h += '<div class="resume" style="margin-top:14px"><div><span>تابع من حيث توقفت</span><b dir="auto">' + esc(lastC.name) + ' · ' + esc(lastL.name) + '</b></div><button class="btn sm" type="button" data-act="resume">متابعة</button></div>';
+    /* خطة اليوم + الاختبارات القادمة */
+    var items = [];
+    C.courses.forEach(function (c) {
+      if (!c.plan) return;
+      c.plan.days.forEach(function (day) {
+        if (day.d !== tod) return;
+        day.items.forEach(function (it) {
+          var l = c.lectures.filter(function (x) { return x.id === it.lec; })[0]; if (!l || l.done) return;
+          var secs = l.analysis ? l.analysis.sections.slice(it.from, it.to + 1).map(function (x) { return x.title; }).join(' • ') : '';
+          items.push('<li><span dir="auto">' + esc(l.name) + '</span><small dir="auto">' + esc(c.name) + (secs ? ' — ' + esc(secs) : '') + '</small></li>');
+        });
+        if (day.review) items.push('<li class="rv"><span dir="auto">' + esc(day.review) + '</span><small dir="auto">' + esc(c.name) + '</small></li>');
+      });
+    });
+    var ups = C.courses.map(function (c) { return { c: c, d: daysLeft(c) }; }).filter(function (x) { return x.d != null && x.d >= 0; }).sort(function (a, b) { return a.d - b.d; });
+    h += '<h3 class="sech">اليوم</h3><div class="twocol"><div class="today"><h4>خطة اليوم</h4>' +
+      (items.length ? '<ul>' + items.join('') + '</ul>' : '<p class="lmeta">لا مهام لليوم. افتح مجلدًا ثم قسم «الخطة» لتوزيع محاضراتك على الأيام.</p>') + '</div>' +
+      '<div class="today upc"><h4>الاختبارات القادمة</h4>' +
+      (ups.length ? '<ul>' + ups.map(function (x) { return '<li><span dir="auto">' + esc(x.c.name) + '<small>' + esc(cFmtDay.format(cFrom(x.c.exam))) + '</small></span><b>' + (x.d === 0 ? 'اليوم' : dword(x.d)) + '</b></li>'; }).join('') + '</ul>' : '<p class="lmeta">لا اختبارات قادمة. عدّل موعد اختبارك من المجلد.</p>') + '</div></div>';
+    return h + cTipHtml();
+  }
+  function cTipHtml() {
+    var t = C_TIPS[Math.floor(cToday().getTime() / 864e5) % C_TIPS.length];
+    return '<div class="tip" style="margin-top:14px"><b>نصيحة اليوم: ' + esc(t[0]) + '</b><span>' + esc(t[1]) + '</span></div>';
+  }
+  function cHomeHtml() {
+    var h = '<div class="welcome"><div><h1>مَدارِك</h1></div>' +
+      '<svg viewBox="0 0 350 385" aria-hidden="true"><use href="#lg" width="350" height="385"/></svg></div>';
+    h += cHomeInfo();
+    h += '<h3 class="sech">مجلداتي</h3><div class="folders">';
+    C.courses.forEach(function (c, i) {
+      var d = daysLeft(c), s = cStats(c), pct = s.total ? Math.round(s.done / s.total * 100) : 0;
+      h += '<button class="folder f' + (i % 5) + '" type="button" data-act="openfolder" data-cid="' + c.id + '"><h3 dir="auto">' + esc(c.name) + '</h3>' +
+        '<div class="fx"><span>' + (d == null ? '' : d < 0 ? 'انتهى موعد الاختبار' : d === 0 ? 'الاختبار اليوم' : 'يبقى على الاختبار') + '</span>' + (d != null && d > 0 ? '<b>' + dword(d) + '</b>' : '') + '</div>' +
+        '<div class="bar" aria-hidden="true"><i style="width:' + pct + '%"></i></div>' +
+        '<div class="fm">أُنجز ' + s.done + ' من ' + s.total + ' محاضرات · ' + c.lectures.length + (c.lectures.length === 1 ? ' ملف' : ' ملفات') + '</div></button>';
+    });
+    h += '<button class="folder add" type="button" data-act="newcourse"><b>+ مجلد جديد</b><span class="fm">أضف مادة وموعد اختبارها</span></button></div>';
+    h += '<h3 class="sech">أدوات سريعة</h3><div class="tiles">' +
+      cTile('tutor', 'المعلّم الخصوصي', 'يشرح ويناقشك ويرسم لك المنحنيات.', 'M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8l-4 4v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z') +
+      cTile('homework', 'مساعد الواجبات', 'حلّ مشروح أو تلميحات أو تصحيح لحلّك.', 'M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19zM14 7l3 3') +
+      cTile('summary', 'التلخيص', 'نقاط أو فقرات أو مقال من أي ملف.', 'M6 3.5h8l4 4v13H6zM14 3.5v4h4M9 12h6M9 15.5h6') +
+      cTile('quiz', 'الاختبارات', 'حوّل أي نص إلى اختبار مع شرح.', 'M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17zM8.5 12.5l2.5 2.5 4.5-5') + '</div>';
+    h += '<p class="fine">يعمل مَدارِك بالذكاء الاصطناعي وقد يخطئ، فراجع المعلومات المهمة مع كتابك ومعلّمك. تُحفظ مجلداتك وملفاتك وتعليقاتك على جهازك وحده، أما ما تكتبه أو ترفعه للأدوات فيُرسل إلى مزوّد الذكاء الاصطناعي لمعالجته، فلا ترفع معلومات شخصية حساسة.</p>';
+    return h;
+  }
+  function cTile(go, t, d, path) {
+    return '<button class="tile" type="button" data-go="' + go + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + path + '"/></svg><b>' + t + '</b><span>' + d + '</span></button>';
+  }
+
+  function cFormHtml(c) {
+    var def = new Date(cToday()); def.setDate(def.getDate() + 14);
+    return '<div class="crumbs"><button type="button" data-act="home">مجلداتي</button><span>›</span><b>' + (c ? 'تعديل المجلد' : 'مجلد جديد') + '</b></div>' +
+      '<div class="panel stack"><h3>' + (c ? 'تعديل المادة' : 'مجلد لمادة جديدة') + '</h3>' +
+      '<div class="row"><label class="field"><span>اسم المادة</span><input type="text" id="cf-name" dir="auto" placeholder="مثال: التفاضل والتكامل" value="' + esc(c ? c.name : '') + '"></label>' +
+      '<label class="field"><span>موعد الاختبار</span><input type="date" id="cf-exam" value="' + (c ? c.exam : cIso(def)) + '"></label></div>' +
+      '<div class="row"><label class="field"><span>عدد المحاضرات المقررة في الاختبار</span><input type="number" id="cf-total" min="1" max="80" inputmode="numeric" value="' + (c ? c.total : 8) + '"></label>' +
+      '<label class="field"><span>كم محاضرة أنجزتَ قبل رفعها هنا؟</span><input type="number" id="cf-prior" min="0" max="80" inputmode="numeric" value="' + (c ? (c.prior || 0) : 0) + '"></label></div>' +
+      '<div class="actions"><button class="btn" id="cf-save" type="button" data-act="saveform">' + (c ? 'حفظ' : 'إنشاء المجلد') + '</button>' +
+      (C.courses.length ? '<button class="btn ghost" type="button" data-act="cancelform">إلغاء</button>' : '') +
+      '<span class="status" id="cf-status" role="status"></span></div></div>';
+  }
+
+  function cFolderHtml(c) {
+    var d = daysLeft(c), s = cStats(c), pct = s.total ? Math.round(s.done / s.total * 100) : 0, wa = weakActive(c), idx = C.courses.indexOf(c);
+    var h = '<div class="crumbs"><button type="button" data-act="home">مجلداتي</button><span>›</span><b dir="auto">' + esc(c.name) + '</b></div>';
+    h += '<div class="fhead f' + (idx % 5) + '"><h2 dir="auto">' + esc(c.name) + '</h2>' +
+      '<div class="big"><b>' + (d == null ? '' : d < 0 ? '—' : d) + '</b><span>' + (d == null ? '' : d < 0 ? 'انتهى موعد الاختبار' : d === 0 ? 'الاختبار اليوم' : 'يوم حتى الاختبار') + (c.exam ? ' · ' + esc(cFmtDay.format(cFrom(c.exam))) : '') + '</span></div>' +
+      '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + s.total + '" aria-valuenow="' + s.done + '"><i style="width:' + pct + '%"></i></div>' +
+      '<div class="prog"><span>أُنجز ' + s.done + ' من ' + s.total + ' محاضرات</span><span>المتبقي ' + s.left + '</span></div>';
+    if (s.left > 0) {
+      h += '<ul class="cl">' + s.pend.map(function (l) { return '<li dir="auto">' + esc(l.name) + '</li>'; }).join('') +
+        (s.notUp ? '<li class="miss">' + s.notUp + (s.notUp === 1 ? ' محاضرة لم تُرفع بعد' : ' محاضرات لم تُرفع بعد') + '</li>' : '') + '</ul>';
+    } else h += '<p class="status" data-kind="ok">أنهيتَ جميع المحاضرات. راجع نقاط ضعفك قبل الاختبار.</p>';
+    h += '<div class="actions"><button class="btn ghost sm" type="button" data-act="editcourse">تعديل</button>' +
+      (cv.confirm === 'course' ? '<button class="btn ghost sm" type="button" data-act="delcourse2">تأكيد حذف المجلد وكل ما فيه</button><button class="btn ghost sm" type="button" data-act="nodel">تراجع</button>' : '<button class="btn ghost sm" type="button" data-act="delcourse">حذف المجلد</button>') + '</div></div>';
+    if (d != null && d >= 0 && d <= 3 && wa.length) h += '<div class="cnote">اقترب الاختبار. من تبويب «نقاط الضعف» جهّز الملخص النهائي لأخطائك، واختبر نفسك في كل ما أخطأت فيه.</div>';
+    h += '<div class="subnav"><div class="seg" role="group" aria-label="أقسام المجلد">' +
+      [['files', 'المحاضرات'], ['plan', 'الخطة'], ['weak', 'نقاط الضعف' + (wa.length ? ' (' + wa.length + ')' : '')]].map(function (t) { return '<button type="button" data-act="tab" data-tab="' + t[0] + '" aria-pressed="' + (cv.tab === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div></div>';
+    if (cv.tab === 'plan') h += cPlanTab(c);
+    else if (cv.tab === 'weak') h += cWeakTab(c, wa);
+    else h += cFilesTab(c);
+    return h;
+  }
+
+  function cFilesTab(c) {
+    var h = '<div class="panel stack"><label class="drop" id="c-drop"><strong>أضف محاضراتك إلى هذا المجلد</strong><small>ملفات PDF (أو PowerPoint أو Word). تُحفظ على جهازك فتفتحها وتقرأ منها وتكتب عليها متى شئت.</small><input type="file" id="c-file" multiple accept=".pdf,.pptx,.docx,.txt,.md"></label><span class="status" id="c-ustat" role="status" aria-live="polite"></span></div>';
+    h += '<div class="sech">الملفات</div>';
+    if (c.lectures.length) h += '<div class="lecs">' + c.lectures.map(function (l, i) { return cLecCard(c, l, i); }).join('') + '</div>';
+    else h += '<p class="status">لا توجد ملفات في هذا المجلد بعد.</p>';
+    return h;
+  }
+
+  function cLecCard(c, l, i) {
+    var last = l.scores && l.scores.length ? l.scores[l.scores.length - 1] : null;
+    var h = '<article class="lec' + (l.done ? ' done' : '') + '" data-lid="' + l.id + '"><div class="lh"><span class="ficon' + (l.file ? '' : ' t') + '">' + (l.file ? 'PDF' : 'نص') + '</span><b dir="auto">' + esc(l.name) + '</b></div>';
+    h += '<div class="lmeta">' + (l.done ? 'منجزة · ' : '') + (l.analysis ? l.analysis.sections.length + ' أقسام' : 'لم تُحلَّل بعد') + (last ? ' · آخر اختبار: ' + last.pct + '%' : '') + (l.marks.length ? ' · ' + l.marks.length + ' نقاط معلَّمة' : '') + '</div>';
+    h += '<div class="la">' + (l.file ? '<button class="tg pri" type="button" data-act="read" data-lid="' + l.id + '">فتح الملف</button>' : '') +
+      '<button class="tg' + (l.file ? '' : ' pri') + '" type="button" data-act="open" data-lid="' + l.id + '">المذاكرة بالذكاء الاصطناعي</button>' +
+      '<button class="tg' + (l.done ? ' ok' : '') + '" type="button" data-act="done" data-lid="' + l.id + '">' + (l.done ? '✓ أنهيتها (إلغاء)' : 'أنهيتها') + '</button>' +
+      '<button class="tg" type="button" data-act="quiz" data-mode="lec" data-n="5" data-lid="' + l.id + '">اختبار قصير</button>' +
+      '<button class="tg" type="button" data-act="quiz" data-mode="lec" data-n="12" data-lid="' + l.id + '">اختبار طويل</button>';
+    if (cv.confirm === l.id) h += '<button class="tg bad" type="button" data-act="rm2" data-lid="' + l.id + '">تأكيد الحذف</button><button class="tg" type="button" data-act="nodel">تراجع</button>';
+    else h += '<button class="tg bad" type="button" data-act="rm" data-lid="' + l.id + '" aria-label="حذف ' + esc(l.name) + '">حذف</button>';
+    h += '</div>';
+    if (cv.askQuiz === l.id) h += '<div class="askq"><span>أحسنت. هل تودّ اختبار فهمك لهذه المحاضرة الآن؟</span><button class="tg" type="button" data-act="quiz" data-mode="lec" data-n="5" data-lid="' + l.id + '">قصير</button><button class="tg" type="button" data-act="quiz" data-mode="lec" data-n="12" data-lid="' + l.id + '">طويل</button><button class="tg" type="button" data-act="noask">لاحقًا</button></div>';
+    return h + '</article>';
+  }
+
+  function cPlanTab(c) {
+    var h = '<div class="panel stack"><p class="sub" style="font-size:15px;color:var(--fg-2)">يقرأ كل محاضرة لم تُنجَز، ويقسّمها إلى أقسامها المهمة، ثم يوزّعها على الأيام المتبقية قبل الاختبار، مع يوم أو يومين للمراجعة الأخيرة.</p>' +
+      '<div class="actions"><button class="btn" type="button" data-act="plan" id="c-plan">' + (c.plan ? 'أعد التوزيع' : 'وزّع المحاضرات على الأيام') + '</button><button class="btn ghost" type="button" id="c-pstop" data-act="stop" hidden>إيقاف</button><span class="status" id="c-pstat" role="status" aria-live="polite"></span></div></div>';
+    if (c.plan) h += cPlanHtml(c);
+    return h;
+  }
+
+  function cWeakTab(c, wa) {
+    var h = '<div class="panel stack">';
+    if (!wa.length) h += '<p class="sub" style="font-size:15px;color:var(--fg-2)">لا توجد نقاط ضعف مسجّلة. كلما أخطأت في سؤال بعد اختبار على محاضرة، يُدوَّن هنا ليُعاد اختبارك فيه.</p>';
+    else h += '<div class="stack">' + wa.slice().sort(function (a, b) { return b.wrong - a.wrong; }).map(function (w) {
+      return '<div class="wk">' + (w.law ? '<span class="kd law" dir="auto">' + esc(w.law) + '</span>' : '') + '<b dir="auto">' + esc(w.topic || w.q.q) + '</b><small dir="auto">' + esc(w.q.q) + '</small><small>أخطأت ' + w.wrong + (w.wrong === 1 ? ' مرة' : ' مرات') + (w.lecName ? ' · ' + esc(w.lecName) : '') + '</small></div>';
+    }).join('') + '</div>';
+    h += '<div class="actions"><button class="btn" type="button" data-act="quiz" data-mode="weak" data-n="0"' + (wa.length ? '' : ' disabled') + '>اختبرني في أخطائي</button><button class="btn ghost" type="button" data-act="wsum"' + ((c.weak || []).length ? '' : ' disabled') + ' id="c-wsum">الملخص النهائي لأخطائي</button><button class="btn ghost" type="button" id="c-wstop" data-act="stop" hidden>إيقاف</button><span class="status" id="c-wstat" role="status" aria-live="polite"></span></div></div>';
+    h += '<div class="outcard" id="c-woutcard"' + (c.wsum ? '' : ' hidden') + '><div class="md" id="c-wout">' + (c.wsum ? md(c.wsum) : '') + '</div><div class="actions"><button class="btn ghost sm" type="button" data-act="wcopy" id="c-wcopy">نسخ</button></div></div>';
+    return h;
+  }
+
+  function cPlanHtml(c) {
+    var p = c.plan, tod = cIso(cToday());
+    var h = '<div class="days">';
+    p.days.forEach(function (day) {
+      var cls = 'day' + (day.d === tod ? ' today' : '') + (day.d < tod ? ' past' : '') + (!day.items.length && !day.review ? ' rest' : '');
+      h += '<div class="' + cls + '"><div class="dh"><b>' + esc(cFmtDay.format(cFrom(day.d))) + '</b>' + (day.d === tod ? '<span class="dtag">اليوم</span>' : '') + '</div>';
+      if (day.review) h += '<div class="dsub">' + esc(day.review) + '</div>';
+      day.items.forEach(function (it) {
+        var l = c.lectures.filter(function (x) { return x.id === it.lec; })[0];
+        if (!l) return;
+        var secs = l.analysis ? l.analysis.sections.slice(it.from, it.to + 1).map(function (x) { return x.title; }) : [];
+        h += '<div class="task' + (l.done ? ' done' : '') + '"><span class="t" dir="auto"><span class="sj">' + esc(l.name) + '</span><br><span class="dsub">' + esc(secs.join(' • ')) + '</span></span></div>';
+      });
+      h += '</div>';
+    });
+    return h + '</div>';
+  }
+
+  function cMarkBar(l) {
+    var h = '<div class="markbar" id="c-markbar"><b>' + (l.marks.length ? 'النقاط التي علّمتها (' + l.marks.length + ')' : 'علّم النقاط التي لم تفهمها بزر «لم أفهم هذا»') + '</b>';
+    if (l.marks.length) h += '<div class="mchips">' + l.marks.map(function (m) { return '<span class="chip"><span dir="auto">' + esc(m.title) + '</span><button type="button" data-act="unmark" data-mid="' + m.id + '" aria-label="إزالة">×</button></span>'; }).join('') + '</div>';
+    h += '<div class="row"><label class="field"><span>أضف نقطة بكلماتك</span><input type="text" id="c-custom" dir="auto" placeholder="مثال: لم أفهم لماذا نقسم على n−1"></label><div class="actions" style="align-self:end"><button class="btn ghost sm" type="button" data-act="addmark">إضافة</button></div></div>';
+    h += '<div class="actions"><button class="btn" type="button" data-act="explain" id="c-explain"' + (l.marks.length ? '' : ' disabled') + '>اشرحها لي بالتفصيل</button>' +
+      '<button class="btn ghost" type="button" data-act="quiz" data-mode="marked" data-n="5" data-lid="' + l.id + '"' + (l.marks.length ? '' : ' disabled') + '>اختبرني فيها (قصير)</button>' +
+      '<button class="btn ghost" type="button" data-act="quiz" data-mode="marked" data-n="12" data-lid="' + l.id + '"' + (l.marks.length ? '' : ' disabled') + '>اختبرني فيها (طويل)</button>' +
+      '<button class="btn ghost" type="button" id="c-estop" data-act="stop" hidden>إيقاف</button><span class="status" id="c-estat" role="status" aria-live="polite"></span></div></div>';
+    return h;
+  }
+
+  function cCrumbs(c, l, extra) {
+    return '<div class="crumbs"><button type="button" data-act="home">مجلداتي</button><span>›</span><button type="button" data-act="openfolder" data-cid="' + c.id + '" dir="auto">' + esc(c.name) + '</button>' + (l ? '<span>›</span><b dir="auto">' + esc(l.name) + (extra ? ' · ' + extra : '') + '</b>' : '') + '</div>';
+  }
+
+  function cLecHtml(c, l) {
+    var h = cCrumbs(c, l, 'المذاكرة');
+    h += '<div class="panel stack"><h3 dir="auto">' + esc(l.name) + '</h3>';
+    if (!l.analysis) {
+      h += '<p class="status" id="c-astat" role="status" aria-live="polite">' + (cv.busy ? 'يقرأ المحاضرة ويرتّبها…' : 'لم تُحلَّل المحاضرة بعد.') + '</p>' +
+        '<div class="actions"><button class="btn" type="button" data-act="analyse"' + (cv.busy ? ' disabled' : '') + '>حلّل المحاضرة</button>' + (cv.busy ? '<button class="btn ghost" type="button" data-act="stop">إيقاف</button>' : '') + '</div></div>';
+      return h;
+    }
+    var a = l.analysis, marked = function (id) { return l.marks.some(function (m) { return m.id === id; }); };
+    h += '<p class="sub" style="font-size:15px;color:var(--fg-2)">ملخص مرتّب بحسب ورود المحاضرة، ثم المفاهيم والقوانين. علّم ما لم تفهمه ليشرحه لك ويختبرك فيه.</p>' +
+      (l.file ? '<div class="actions"><button class="btn ghost sm" type="button" data-act="read" data-lid="' + l.id + '">فتح الملف الأصلي</button></div>' : '') + '</div>';
+    h += '<h3 class="sech">الملخص بترتيب المحاضرة</h3><div class="lecs">' + a.sections.map(function (x, i) {
+      var id = 's' + i;
+      return '<div class="sc' + (marked(id) ? ' marked' : '') + '"><div class="sh"><b dir="auto">' + (i + 1) + '. ' + esc(x.title) + '</b><button class="tg" type="button" data-act="mark" data-mid="' + id + '" aria-pressed="' + marked(id) + '">' + (marked(id) ? '✓ معلَّمة' : 'لم أفهم هذا') + '</button></div>' +
+        (x.summary ? '<p dir="auto">' + esc(x.summary) + '</p>' : '') + (x.points.length ? '<ul dir="auto">' + x.points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>' : '') + '</div>';
+    }).join('') + '</div>';
+    if (a.concepts.length) h += '<h3 class="sech">المفاهيم والقوانين الأساسية</h3><div class="lecs">' + a.concepts.map(function (x, i) {
+      var id = 'c' + i;
+      return '<div class="cc' + (marked(id) ? ' marked' : '') + '"><div class="sh"><b dir="auto"><span class="kd' + (x.kind === 'law' ? ' law' : '') + '">' + (x.kind === 'law' ? 'قانون' : x.kind === 'definition' ? 'تعريف' : 'مفهوم') + '</span>' + esc(x.name) + '</b><button class="tg" type="button" data-act="mark" data-mid="' + id + '" aria-pressed="' + marked(id) + '">' + (marked(id) ? '✓ معلَّمة' : 'لم أفهم هذا') + '</button></div><p dir="auto">' + esc(x.text) + '</p></div>';
+    }).join('') + '</div>';
+    h += '<div style="height:16px"></div>' + cMarkBar(l);
+    h += '<div class="outcard" id="c-explcard"' + (l.explain ? '' : ' hidden') + '><div class="md" id="c-expl">' + (l.explain ? md(l.explain.text) : '') + '</div></div>';
+    h += '<div class="actions" style="margin-top:20px"><button class="btn' + (l.done ? ' ghost' : '') + '" type="button" data-act="done" data-lid="' + l.id + '">' + (l.done ? '✓ أنهيتها (إلغاء)' : 'أنهيتُ هذه المحاضرة') + '</button>' +
+      '<button class="btn ghost" type="button" data-act="quiz" data-mode="lec" data-n="5" data-lid="' + l.id + '">اختبار قصير</button><button class="btn ghost" type="button" data-act="quiz" data-mode="lec" data-n="12" data-lid="' + l.id + '">اختبار طويل</button></div>';
+    return h;
+  }
+
+  /* ---------- قارئ الملفات مع الكتابة عليها ---------- */
+  var RD_COL = ['#d63a2f', '#2f5fa8', '#2e8b57', '#2b2118', '#e0a800'];
+  var rd = { doc: null, lid: null, page: 1, n: 0, tool: 'view', color: RD_COL[0], z: 1, ann: {}, task: null, cur: null, want: 0, chain: Promise.resolve(), saveT: null, clr: false };
+  function cReadHtml(c, l) {
+    var tools = [['view', 'تصفّح'], ['pen', 'قلم'], ['hl', 'تظليل'], ['tx', 'نص'], ['er', 'ممحاة']];
+    var h = cCrumbs(c, l, 'القراءة');
+    h += '<div class="reader"><div class="rbar"><button class="btn sm" type="button" data-act="open" data-lid="' + l.id + '">المذاكرة بالذكاء الاصطناعي</button></div>';
+    h += '<div class="rtools" id="rtools">' + tools.map(function (t) { return '<button class="tg" type="button" data-act="tool" data-tool="' + t[0] + '" aria-pressed="' + (rd.tool === t[0]) + '">' + t[1] + '</button>'; }).join('') +
+      RD_COL.map(function (k) { return '<button class="sw" type="button" data-act="color" data-c="' + k + '" style="background:' + k + '" aria-pressed="' + (rd.color === k) + '" aria-label="لون"></button>'; }).join('') +
+      '<span class="sp"></span><button class="tg" type="button" data-act="undo">تراجع</button><button class="tg bad" type="button" data-act="clrpage" id="r-clr">مسح الصفحة</button><button class="tg" type="button" data-act="zout" aria-label="تصغير">−</button><button class="tg" type="button" data-act="zin" aria-label="تكبير">+</button></div>';
+    h += '<span class="status" id="rst" role="status" aria-live="polite"></span>';
+    h += '<div class="rview" id="rview"><div class="pagebox" id="pbox"><canvas id="rc"></canvas><canvas id="ro" class="ov' + (rd.tool === 'view' ? ' off' : '') + '"></canvas></div></div>';
+    h += '<div class="rnav"><button class="btn ghost sm" type="button" data-act="rnext">التالي</button><span class="pg" id="rpg"></span><button class="btn ghost sm" type="button" data-act="rprev">السابق</button></div>';
+    h += '<p class="lmeta">للتحريك والتكبير بأصابعك اختر «تصفّح». ولكتابتك على الصفحة اختر قلمًا أو تظليلًا أو نصًا. تُحفظ تعليقاتك تلقائيًا.</p></div>';
+    return h;
+  }
+  async function rdLoad(l) {
+    var st = $('#rst'); say(st, 'جارٍ فتح الملف…', '');
+    rd.doc = null; rd.cur = null; rd.z = 1; rd.clr = false;
+    try {
+      var blob = cDb ? await idbGet(cDb, 'f:' + l.id) : null;
+      if (!blob) throw 'nofile';
+      await loadScript(PDFJS);
+      var lib = window.pdfjsLib; lib.GlobalWorkerOptions.workerSrc = PDFW;
+      var doc = await lib.getDocument({ data: await blob.arrayBuffer() }).promise;
+      var ann = (await idbGet(cDb, 'a:' + l.id)) || {};
+      if (cv.mode !== 'read' || cv.lecId !== l.id) return;
+      rd.doc = doc; rd.n = doc.numPages; rd.lid = l.id; rd.ann = ann; rd.page = Math.min(Math.max(1, l.lastPage || 1), rd.n);
+      say(st, '', '');
+      rdRender();
+    } catch (e) {
+      say($('#rst') || st, e === 'nofile' ? 'ملف هذه المحاضرة غير محفوظ على هذا الجهاز. ارفعه من جديد.' : 'تعذّر فتح الملف. تأكد من اتصالك بالإنترنت ثم أعد المحاولة.', 'err');
+    }
+  }
+  function rdRender() {
+    var my = ++rd.want;
+    rd.chain = rd.chain.then(async function () {
+      if (my !== rd.want || !rd.doc || cv.mode !== 'read') return;
+      var view = $('#rview'), c1 = $('#rc'), ov = $('#ro'); if (!view || !c1) return;
+      var pg = await rd.doc.getPage(rd.page);
+      if (my !== rd.want) return;
+      var boxW = Math.max(240, view.clientWidth - 2) * rd.z, v0 = pg.getViewport({ scale: 1 }), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var vp = pg.getViewport({ scale: boxW / v0.width * dpr });
+      c1.width = ov.width = Math.round(vp.width); c1.height = ov.height = Math.round(vp.height);
+      c1.style.width = ov.style.width = Math.round(vp.width / dpr) + 'px'; c1.style.height = ov.style.height = Math.round(vp.height / dpr) + 'px';
+      try { await pg.render({ canvasContext: c1.getContext('2d'), viewport: vp }).promise; } catch (e) { return; }
+      rdDraw(); var pgEl = $('#rpg'); if (pgEl) pgEl.textContent = 'صفحة ' + rd.page + ' من ' + rd.n;
+    }).catch(function () {});
+  }
+  function rdDraw() {
+    var ov = $('#ro'); if (!ov) return;
+    var g = ov.getContext('2d'), W = ov.width, H = ov.height;
+    g.clearRect(0, 0, W, H);
+    (rd.ann[rd.page] || []).concat(rd.cur ? [rd.cur] : []).forEach(function (o) {
+      g.save();
+      if (o.t === 'tx') {
+        var fs = o.fs * W, ar = /[؀-ۿ]/.test(o.s);
+        g.font = '600 ' + fs + 'px "IBM Plex Sans Arabic", Tahoma, sans-serif'; g.fillStyle = o.c; g.direction = ar ? 'rtl' : 'ltr'; g.textAlign = ar ? 'right' : 'left';
+        o.s.split('\n').forEach(function (ln, i) { g.fillText(ln, o.x * W, o.y * H + i * fs * 1.35); });
+      } else if (o.p && o.p.length) {
+        g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = o.c; g.lineWidth = o.w * W; if (o.t === 'hl') g.globalAlpha = .38;
+        g.beginPath(); o.p.forEach(function (q, i) { if (i) g.lineTo(q[0] * W, q[1] * H); else g.moveTo(q[0] * W, q[1] * H); });
+        if (o.p.length === 1) g.lineTo(o.p[0][0] * W + .1, o.p[0][1] * H);
+        g.stroke();
+      }
+      g.restore();
+    });
+  }
+  function rdSave() {
+    clearTimeout(rd.saveT);
+    rd.saveT = setTimeout(function () { if (cDb && rd.lid) idbPut(cDb, 'a:' + rd.lid, rd.ann); }, 250);
+  }
+  function rdPos(e) { var r = $('#ro').getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; }
+  function rdErase(p) {
+    var ov = $('#ro'), W = ov.width, H = ov.height, ops = rd.ann[rd.page] || [], rad = .03 * W, n0 = ops.length;
+    rd.ann[rd.page] = ops.filter(function (o) {
+      if (o.t === 'tx') { var fs = o.fs * W, wd = o.s.length * fs * .55, x = o.x * W, y = o.y * H, px = p[0] * W, py = p[1] * H; var xs = /[؀-ۿ]/.test(o.s) ? [x - wd, x] : [x, x + wd]; return !(px >= xs[0] - rad / 2 && px <= xs[1] + rad / 2 && py >= y - fs - rad / 2 && py <= y + rad / 2); }
+      return !o.p.some(function (q) { var dx = q[0] * W - p[0] * W, dy = q[1] * H - p[1] * H; return dx * dx + dy * dy < rad * rad; });
+    });
+    if (rd.ann[rd.page].length !== n0) { rdDraw(); rdSave(); }
+  }
+  function rdTextAt(p) {
+    var box = $('#pbox'), ov = $('#ro'), inp = document.createElement('input'), done = false;
+    inp.type = 'text'; inp.className = 'rtext'; inp.dir = 'auto'; inp.placeholder = 'اكتب ثم اضغط Enter';
+    inp.style.left = Math.min(p[0] * ov.clientWidth, Math.max(0, ov.clientWidth - 160)) + 'px'; inp.style.top = Math.max(0, p[1] * ov.clientHeight - 18) + 'px';
+    box.appendChild(inp); inp.focus();
+    function commit() {
+      if (done) return; done = true; var s = inp.value.trim(); inp.remove();
+      if (s) { (rd.ann[rd.page] = rd.ann[rd.page] || []).push({ t: 'tx', c: rd.color, x: p[0], y: p[1], s: s, fs: .026 }); rdDraw(); rdSave(); }
+    }
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); commit(); } else if (e.key === 'Escape') { done = true; inp.remove(); } });
+    inp.addEventListener('blur', commit);
+  }
+  function rdGo(n) {
+    if (!rd.doc) return; n = Math.min(Math.max(1, n), rd.n); if (n === rd.page) return;
+    rd.page = n; rd.cur = null; rd.clr = false; var l = curL(); if (l) { l.lastPage = n; saveC(); }
+    var b = $('#r-clr'); if (b) b.textContent = 'مسح الصفحة';
+    rdRender(); var v = $('#rview'); if (v) v.scrollTop = 0;
+  }
+  var rdDown = null;
+  (function (root) {
+    root.addEventListener('pointerdown', function (e) {
+      if (e.target.id !== 'ro' || rd.tool === 'view' || !rd.doc) return;
+      e.preventDefault(); e.target.setPointerCapture(e.pointerId);
+      var p = rdPos(e); rdDown = { p: p, moved: false };
+      if (rd.tool === 'pen' || rd.tool === 'hl') { rd.cur = { t: rd.tool, c: rd.color, w: rd.tool === 'hl' ? .026 : .0032, p: [p] }; rdDraw(); }
+      else if (rd.tool === 'er') rdErase(p);
+    });
+    root.addEventListener('pointermove', function (e) {
+      if (!rdDown || e.target.id !== 'ro') return;
+      var p = rdPos(e), q = rdDown.p; if (Math.abs(p[0] - q[0]) + Math.abs(p[1] - q[1]) > .004) rdDown.moved = true;
+      if (rd.cur) { var last = rd.cur.p[rd.cur.p.length - 1]; if (Math.abs(p[0] - last[0]) + Math.abs(p[1] - last[1]) > .0015) { rd.cur.p.push(p); rdDraw(); } }
+      else if (rd.tool === 'er') rdErase(p);
+    });
+    var up = function (e) {
+      if (!rdDown) return; var d = rdDown; rdDown = null;
+      if (rd.cur) { (rd.ann[rd.page] = rd.ann[rd.page] || []).push(rd.cur); rd.cur = null; rdDraw(); rdSave(); }
+      else if (rd.tool === 'tx' && !d.moved) rdTextAt(d.p);
+    };
+    root.addEventListener('pointerup', up); root.addEventListener('pointercancel', up);
+  })($('#c-root'));
+  var rdRz = null;
+  window.addEventListener('resize', function () { if (cv.mode !== 'read' || !rd.doc) return; clearTimeout(rdRz); rdRz = setTimeout(rdRender, 200); });
+  /* ---------- شاشة الاختبار ---------- */
+  var C_TYPE = { mcq: 'اختيار من متعدد', tf: 'صح أو خطأ', short: 'إجابة قصيرة' };
+  function cQuizHtml() {
+    var h = '<div class="actions"><button class="btn ghost sm" type="button" data-act="qback">رجوع</button></div><h3 class="sech" dir="auto">' + esc(cq.title) + '</h3><div class="cq" id="cq">';
+    h += cq.qs.map(function (q, i) {
+      var body;
+      if (q.type === 'short') body = '<textarea id="cqa' + i + '" rows="3" dir="auto" placeholder="اكتب إجابتك"></textarea>';
+      else body = '<div class="opts" role="radiogroup" aria-label="خيارات السؤال ' + (i + 1) + '">' + q.options.map(function (o, j) {
+        return '<label class="opt" data-j="' + j + '"><input type="radio" name="cq' + i + '" value="' + j + '"><i class="dot"></i><span dir="auto">' + esc(o) + '</span></label>';
+      }).join('') + '</div>';
+      return '<article class="qcard" data-i="' + i + '"><div class="qmeta"><span class="tag">' + C_TYPE[q.type] + (q.again ? ' · من أخطائك' : q.similar ? ' · سؤال مشابه' : '') + '</span><span class="qn">' + (i + 1) + ' / ' + cq.qs.length + '</span></div>' +
+        '<h3 dir="auto">' + esc(q.q) + '</h3>' + body + '<div class="qfb" hidden></div></article>';
+    }).join('') + '</div><div class="qfoot" id="cq-foot"><span id="cq-count" class="status"></span><button class="btn" id="cq-finish" type="button" data-act="qfinish">أنهِ الاختبار</button></div>';
+    return h;
+  }
+  function cqAnswered() {
+    var n = 0;
+    cq.qs.forEach(function (q, i) {
+      if (q.type === 'short') { var t = $('#cqa' + i); if (t && t.value.trim()) n++; }
+      else if ($('#c-root input[name=cq' + i + ']:checked')) n++;
+    });
+    return n;
+  }
+  function cqCount() { var e = $('#cq-count'); if (e && cq && !cq.done) e.textContent = 'أجبت عن ' + cqAnswered() + ' من ' + cq.qs.length; }
+
+  async function cStartQuiz(mode, n, lid) {
+    var c = curC(), l = null;
+    if (mode !== 'weak') { l = c.lectures.filter(function (x) { return x.id === lid; })[0]; if (!l) return; }
+    if (cv.busy) return;
+    var host = $('#c-root');
+    cv.back = { mode: cv.mode, tab: cv.tab, lecId: cv.lecId };
+    cv.busy = true; cCtl = new AbortController();
+    host.innerHTML = '<div class="panel stack"><p class="status" role="status" aria-live="polite">جارٍ تحضير الأسئلة… قد يستغرق ذلك نصف دقيقة.</p><div class="actions"><button class="btn ghost" type="button" data-act="stop">إيقاف</button></div></div>';
+    window.scrollTo(0, 0);
+    try {
+      var qs = await cGenQuiz({ mode: mode, n: n, lec: l });
+      cq = { qs: qs, done: false, mode: mode, lecId: l ? l.id : null, title: mode === 'weak' ? 'اختبار نقاط ضعفي' : (mode === 'marked' ? 'اختبار في نقاطك المعلَّمة: ' : (n >= 12 ? 'اختبار طويل: ' : 'اختبار قصير: ')) + (l ? l.name : '') };
+      cv.mode = 'quiz'; cv.busy = false; cCtl = null;
+      cRender(); window.scrollTo(0, 0); cqCount();
+    } catch (e) {
+      cv.busy = false; cCtl = null; cv.mode = cv.back.mode; cRender();
+      var m = errCopy(e); if (m) host.insertAdjacentHTML('afterbegin', '<div class="cnote">' + esc(m) + '</div>');
+    }
+  }
+  function fmtS(n) { return (Math.round(n * 2) / 2).toString().replace('.', '٫'); }
+
+  async function cFinishQuiz() {
+    if (cq.done) return; cq.done = true;
+    var box = $('#c-root'), qs = cq.qs, c = curC();
+    box.querySelectorAll('input,textarea').forEach(function (x) { x.disabled = true; });
+    var score = 0, total = 0, shorts = [], res = [];
+    qs.forEach(function (q, i) {
+      var card = box.querySelector('.qcard[data-i="' + i + '"]'), fb = card.querySelector('.qfb');
+      fb.hidden = false; total++;
+      if (q.type === 'short') {
+        var a = ($('#cqa' + i).value || '').trim(); q.student = a;
+        fb.innerHTML = '<div class="k">إجابتك</div><div dir="auto">' + (a ? esc(a) : 'لم تُجب') + '</div><div class="k">الإجابة النموذجية</div><div dir="auto">' + esc(q.answer) + '</div>' + (q.explain ? '<div class="k">ملاحظة</div><div dir="auto">' + esc(q.explain) + '</div>' : '');
+        if (!a) { res[i] = false; fb.insertAdjacentHTML('afterbegin', '<div class="verdict bad">لم تُجب</div>'); } else shorts.push(i);
+        return;
+      }
+      var sel = box.querySelector('input[name=cq' + i + ']:checked'), v = sel ? +sel.value : -1, ok = v === q.answer;
+      res[i] = ok; if (ok) score++;
+      card.querySelectorAll('.opt').forEach(function (o) { var j = +o.dataset.j; if (j === q.answer) o.classList.add('ok'); else if (j === v) o.classList.add('bad'); });
+      fb.innerHTML = '<div class="verdict ' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'إجابة صحيحة' : (v < 0 ? 'لم تُجب. الصحيح: ' : 'إجابة خاطئة. الصحيح: ') + esc(q.options[q.answer])) + '</div>' + (q.explain ? '<div dir="auto">' + esc(q.explain) + '</div>' : '') + (!ok && q.law ? '<div class="k">القانون: <span dir="auto">' + esc(q.law) + '</span></div>' : '');
+    });
+    var foot = $('#cq-foot');
+    if (shorts.length) {
+      foot.innerHTML = '<span class="status">تُصحَّح إجاباتك القصيرة…</span>';
+      var s = await sampleP, graded = null;
+      if (s) {
+        try {
+          var payload = shorts.map(function (i) { return { i: i, question: qs[i].q, modelAnswer: qs[i].answer, studentAnswer: qs[i].student }; });
+          graded = await s.json('أنت معلّم يصحّح إجابات قصيرة بإنصاف. لكل عنصر قارن إجابة الطالب بالإجابة النموذجية بحسب المعنى لا اللفظ. أرجع مصفوفة JSON فقط بنفس عدد العناصر، كل عنصر على الشكل {"i":رقم السؤال كما أُعطي,"score":0 أو 0.5 أو 1,"feedback":"جملة أو جملتان للطالب: ماذا أصاب وماذا ينقصه"}.\n\n' + JSON.stringify(payload), { modelTier: 'quick' });
+        } catch (e) { graded = null; }
+      }
+      shorts.forEach(function (i) {
+        var g = graded && Array.isArray(graded) ? graded.filter(function (x) { return x && +x.i === i; })[0] : null;
+        var fb = box.querySelector('.qcard[data-i="' + i + '"] .qfb');
+        if (g) {
+          var sc = Math.max(0, Math.min(1, +g.score || 0)); score += sc; res[i] = sc >= 1;
+          fb.insertAdjacentHTML('afterbegin', '<div class="verdict ' + (sc === 1 ? 'ok' : sc > 0 ? 'mid' : 'bad') + '">' + (sc === 1 ? 'صحيحة' : sc > 0 ? 'صحيحة جزئيًا' : 'غير صحيحة') + '</div><div dir="auto">' + esc(g.feedback || '') + '</div>');
+        } else { res[i] = null; total--; fb.insertAdjacentHTML('afterbegin', '<div class="verdict mid">تعذّر التصحيح التلقائي. قارن إجابتك بالنموذج.</div>'); }
+      });
+    }
+    /* تدوين نقاط الضعف */
+    var added = 0, fixed = 0, tod = cIso(cToday());
+    var lec = cq.lecId ? c.lectures.filter(function (x) { return x.id === cq.lecId; })[0] : null;
+    qs.forEach(function (q, i) {
+      if (res[i] == null) return;
+      var key = qkey(q.q), w = c.weak.filter(function (x) { return x.id === key; })[0];
+      if (!res[i]) {
+        if (w) { w.wrong++; w.streak = 0; w.last = tod; }
+        else {
+          c.weak.push({ id: key, q: { type: q.type, q: q.q, options: q.options || null, answer: q.answer, explain: q.explain || '' }, topic: q.topic || '', law: q.law || '', wrong: 1, streak: 0, lecId: q.again ? null : (cq.lecId || null), lecName: lec ? lec.name : '', last: tod });
+          added++;
+        }
+      } else if (w) { w.streak++; if (w.streak === 2) fixed++; }
+    });
+    if (c.weak.length > 80) { c.weak.sort(function (a, b) { return (a.streak >= 2) - (b.streak >= 2) || (b.last > a.last ? 1 : -1); }); c.weak = c.weak.slice(0, 80); }
+    var pct = total ? Math.round(score / total * 100) : 0;
+    if (lec) lec.scores.push({ d: tod, pct: pct, mode: cq.mode, n: total });
+    saveC(); updateChip();
+    var msg = pct >= 85 ? 'ممتاز. أنت متمكّن من هذا الجزء.' : pct >= 60 ? 'جيد. راجع الأخطاء وأعد المحاولة.' : 'تحتاج إلى مراجعة. ارجع إلى المحاضرة وعلّم ما لم تفهمه.';
+    box.insertAdjacentHTML('afterbegin', '<div class="result" id="cq-result"><div class="score">' + fmtS(score) + ' / ' + total + '</div><div><p>' + msg + '</p><p>' +
+      (added ? 'أُضيفت ' + added + (added === 1 ? ' نقطة' : ' نقاط') + ' إلى «نقاط الضعف». ' : '') + (fixed ? 'أتقنتَ ' + fixed + (fixed === 1 ? ' نقطة كنت تخطئ فيها.' : ' نقاط كنت تخطئ فيها.') : '') + '</p></div><div class="actions">' +
+      '<button class="btn" type="button" data-act="qagain">اختبار آخر مماثل</button><button class="btn ghost" type="button" data-act="qback">رجوع</button></div></div>');
+    foot.remove();
+    window.scrollTo(0, 0);
+  }
+
+  /* ---------- AI: lecture analysis ---------- */
+  function cNormAnalysis(r) {
+    if (!r || typeof r !== 'object') return null;
+    var secs = (Array.isArray(r.sections) ? r.sections : []).map(function (x) {
+      if (!x || !x.title) return null;
+      return { title: String(x.title).slice(0, 160), summary: String(x.summary || '').slice(0, 900), points: (Array.isArray(x.points) ? x.points : []).map(String).slice(0, 5) };
+    }).filter(Boolean).slice(0, 14);
+    var cons = (Array.isArray(r.concepts) ? r.concepts : []).map(function (x) {
+      if (!x || !x.name) return null;
+      var k = x.kind === 'law' || x.kind === 'definition' ? x.kind : 'concept';
+      return { name: String(x.name).slice(0, 160), kind: k, text: String(x.text || '').slice(0, 700) };
+    }).filter(Boolean).slice(0, 24);
+    return secs.length ? { sections: secs, concepts: cons } : null;
+  }
+  /* إنقاذ JSON مقطوع: نبحث عن آخر موضع يمكن إغلاقه فيصير صالحًا */
+  function cSalvage(t) {
+    if (!t) return null;
+    var a = t.indexOf('{'); if (a < 0) return null; t = t.slice(a);
+    var tails = [']}', ']}]}', '}]}', '}]}]}', ']}]}'];
+    for (var i = t.length - 1, tries = 0; i > 10 && tries < 400; i--) {
+      if (t[i] !== '}' && t[i] !== ']') continue;
+      tries++;
+      for (var k = 0; k < tails.length; k++) {
+        try { var o = JSON.parse(t.slice(0, i + 1) + tails[k]); if (o && o.sections) return o; } catch (e) {}
+      }
+      try { var o2 = JSON.parse(t.slice(0, i + 1)); if (o2 && o2.sections) return o2; } catch (e) {}
+    }
+    return null;
+  }
+  function cAnalysePrompt(l, compact) {
+    return 'أنت معلّم يحلّل محاضرة جامعية لطالب يستعد لاختبار.\n' +
+      'اعتمد على نص المحاضرة أدناه فقط ولا تضف معلومات من خارجه. أرجع كائن JSON واحدًا فقط بهذا الشكل:\n' +
+      '{"sections":[{"title":"عنوان القسم","summary":"شرح مختصر للقسم","points":["نقطة أساسية قصيرة"]}],"concepts":[{"name":"اسم المفهوم أو القانون","kind":"law","text":"التعريف أو نص القانون وصيغته ومتى يُستخدم"}]}\n' +
+      'القواعد:\n- sections: رتّبها بنفس ترتيب ورودها في المحاضرة تمامًا، ' + (compact ? 'من 3 إلى 7' : 'من 3 إلى 10') + ' أقسام. لكل قسم summary في جملتين كحد أقصى و' + (compact ? 'حتى نقطتين' : 'حتى 3 نقاط') + ' قصيرة.\n' +
+      '- concepts: أهم القوانين والصيغ والتعريفات والمفاهيم (' + (compact ? 'حتى 8' : 'حتى 14') + ') بترتيب ورودها، ونص كل منها في جملة واحدة. kind واحدة من: law (قانون أو صيغة أو قاعدة)، definition (تعريف)، concept (مفهوم).\n' +
+      '- اكتب بلغة المحاضرة (العربية إن لم تتضح) والتزم بلغة واحدة، ويجوز المصطلح العلمي بين قوسين. الصيغ الرياضية بحروف عادية (x² و √ و ÷) دون LaTeX، ولا تستخدم علامات اقتباس مزدوجة داخل النصوص. اختصر كي لا يطول الرد.\n\n' +
+      'نص المحاضرة (' + l.name + '):\n<<<\n' + l.text.slice(0, compact ? 30000 : MAXCH) + '\n>>>';
+  }
+  async function cAnalyse(l, signal) {
+    var s = await sampleP; if (!s) throw { code: 'not_granted' };
+    var a = null, lastErr = null;
+    for (var attempt = 0; attempt < 2 && !a; attempt++) {
+      try {
+        var res = await s.json(cAnalysePrompt(l, attempt > 0), { signal: signal });
+        a = cNormAnalysis(res);
+      } catch (e) {
+        if (e && e.code === 'cancelled') throw e;
+        lastErr = e;
+        if (e && e.text) { var sv = cSalvage(e.text); a = cNormAnalysis(sv); }
+        if (!a && e && e.code && e.code !== 'invalid_json' && e.code !== 'empty_completion') throw e;
+      }
+    }
+    if (!a) throw lastErr && lastErr.code ? lastErr : { code: 'invalid_json' };
+    l.analysis = a; saveC();
+  }
+
+  /* ---------- AI: quizzes ---------- */
+  function cNormQ(q) {
+    var n = normQ(q); if (!n) return null;
+    n.topic = String(q.topic || '').slice(0, 120); n.law = String(q.law || '').slice(0, 160);
+    return n;
+  }
+  var C_SHAPE = 'أرجع مصفوفة JSON فقط، وكل عنصر بأحد هذه الأشكال (وأضف لكل سؤال الحقلين topic وlaw):\n' +
+    '{"type":"mcq","q":"نص السؤال","options":["..","..","..",".."],"answer":2,"explain":"لماذا هذا هو الصحيح، في جملة أو جملتين","topic":"المفهوم الذي يقيسه السؤال في 2 إلى 5 كلمات","law":"اسم القانون أو القاعدة أو الصيغة إن اعتمد السؤال عليها، وإلا اتركها نصًا فارغًا"}\n' +
+    '{"type":"tf","q":"عبارة تُحكم عليها","answer":0,"explain":"..","topic":"..","law":".."}   (answer: 0 تعني صح، و1 تعني خطأ)\n' +
+    '{"type":"short","q":"سؤال","answer":"الإجابة النموذجية في جملة أو جملتين","explain":"..","topic":"..","law":".."}\n' +
+    'قواعد: في mcq يكون answer رقم الخيار الصحيح بدءًا من 0، ووزّع موضعه بين الخيارات. اجعل الخيارات الخاطئة معقولة. لا تستخدم LaTeX. لا تكرر الأفكار. ' +
+    'نوّع بين mcq وtf وshort (غالبيتها mcq). التزم بلغة واحدة (لغة المادة، العربية إن لم تتضح) ويجوز المصطلح العلمي بين قوسين. ' +
+    'في الرياضيات والفيزياء والكيمياء وما شابهها ركّز على فهم المفاهيم والشروط ومتى نستخدم كل قانون ولماذا والأخطاء الشائعة، بأسئلة نظرية، وإن احتجت حسابًا فليكن بسيطًا بخطوة واحدة وبأرقام صغيرة.';
+
+  async function cGenQuiz(o) {
+    var c = curC(), s = await sampleP; if (!s) throw { code: 'not_granted' };
+    var l = o.lec, wk = weakActive(c), prompt, originals = [];
+    if (o.mode === 'weak') {
+      var pick = wk.slice().sort(function (a, b) { return b.wrong - a.wrong; }).slice(0, 12);
+      originals = pick.map(function (w) { var q = JSON.parse(JSON.stringify(w.q)); q.topic = w.topic; q.law = w.law; q.again = true; return q; });
+      var lids = {}; pick.forEach(function (w) { lids[w.lecId] = 1; });
+      var ctx = c.lectures.filter(function (x) { return lids[x.id]; }).map(function (x) { return '--- ' + x.name + ' ---\n' + x.text.slice(0, 9000); }).join('\n\n').slice(0, 26000);
+      var nNew = Math.max(4, Math.min(8, pick.length));
+      prompt = 'أنت معلّم متمرّس. أخطأ الطالب في الأسئلة التالية أثناء مذاكرته، وتريد أسئلة جديدة تعالج نقاط ضعفه نفسها.\n' +
+        'اكتب ' + nNew + ' أسئلة جديدة بأفكار مشابهة لهذه الأخطاء (لا تكرر الأسئلة نفسها، بل غيّر الصياغة أو الزاوية أو الحالة، وأحيانًا ركّز على الشرط أو الفرق الذي يخلط فيه الطالب).\n' +
+        'نقاط الضعف:\n' + pick.map(function (w, i) { return (i + 1) + '. [' + (w.topic || '') + (w.law ? ' | ' + w.law : '') + '] ' + w.q.q + ' => الصحيح: ' + (w.q.type === 'short' ? w.q.answer : w.q.options[w.q.answer]); }).join('\n') + '\n\n' +
+        C_SHAPE + (ctx ? '\n\nمادة المحاضرات للرجوع إليها:\n<<<\n' + ctx + '\n>>>' : '');
+    } else {
+      var wl = wk.filter(function (w) { return w.lecId === l.id; }).slice(0, 8);
+      var marks = o.mode === 'marked' ? l.marks : [];
+      prompt = 'أنت معلّم متمرّس يكتب اختبارات للطلاب.\nاكتب ' + o.n + ' أسئلة اعتمادًا على نص المحاضرة أدناه فقط، ولا تسأل عن شيء غير موجود فيها.\n' +
+        (marks.length ? 'ركّز الأسئلة على النقاط التالية فقط، لأن الطالب لم يفهمها (وزّع الأسئلة عليها):\n' + marks.map(function (m, i) { return (i + 1) + '. ' + m.title + (m.text ? ': ' + m.text.slice(0, 240) : ''); }).join('\n') + '\n'
+          : 'غطِّ أجزاء المحاضرة المختلفة بالتساوي تقريبًا.\n') +
+        (wl.length ? 'وضمّن بين الأسئلة نحو ' + Math.max(1, Math.round(o.n * .3)) + ' أسئلة على نقاط ضعفه السابقة التالية بصياغة جديدة:\n' + wl.map(function (w) { return '- ' + (w.topic || w.q.q); }).join('\n') + '\n' : '') +
+        C_SHAPE + '\n\nنص المحاضرة (' + l.name + '):\n<<<\n' + l.text.slice(0, MAXCH) + '\n>>>';
+    }
+    var res = await s.json(prompt, { signal: cCtl ? cCtl.signal : undefined });
+    var arr = Array.isArray(res) ? res : (res && res.questions) || [];
+    var qs = arr.map(cNormQ).filter(Boolean);
+    if (!qs.length) throw { code: 'invalid_json' };
+    if (o.mode === 'weak') { qs.forEach(function (q) { q.similar = true; }); qs = originals.concat(qs); }
+    return qs;
+  }
+
+  /* ---------- AI: explanations, final summary, plan ---------- */
+  async function cExplain(l) {
+    var st = $('#c-estat'), go = $('#c-explain'), stop = $('#c-estop');
+    if (!l.marks.length) { say(st, 'علّم على نقطة واحدة على الأقل.', 'err'); return; }
+    var s = await needSample(st); if (!s) return;
+    cCtl = new AbortController(); cv.busy = true; go.disabled = true; stop.hidden = false; say(st, 'جارٍ التحضير…', '');
+    var prompt = 'أنت معلّم صبور ودقيق. الطالب يقرأ محاضرته ولم يفهم النقاط التالية. اشرح كل نقطة بالتفصيل اعتمادًا على نص المحاضرة (وبمعرفتك الصحيحة المتفق عليها لتوضيحها).\n' +
+      'لكل نقطة اكتب بهذه البنية (بصيغة ## عنوان للنقطة، ثم عناوين عريضة):\n## اسم النقطة\n**الفكرة ببساطة:** شرح بسيط كأنك تشرح لزميل.\n**الشرح المفصّل:** خطوة بخطوة ولماذا.\n**مثال:** مثال محلول أو موقف واضح (بأرقام صغيرة إن لزم).\n**أخطاء شائعة:** ما يخلط فيه الطلاب.\n**كيف تحفظها:** حيلة أو خلاصة قصيرة.\n' +
+      'اكتب بلغة المحاضرة (العربية إن لم تتضح) والتزم بلغة واحدة، ويجوز المصطلح العلمي بين قوسين. لا تستخدم LaTeX (اكتب x² و √ و ÷). ابدأ مباشرة دون مقدمة.\n\n' +
+      'النقاط:\n' + l.marks.map(function (m, i) { return (i + 1) + '. ' + m.title + (m.text ? ' — ' + m.text.slice(0, 400) : ''); }).join('\n') + '\n\nنص المحاضرة (' + l.name + '):\n<<<\n' + l.text.slice(0, 45000) + '\n>>>';
+    var out = $('#c-expl'), card = $('#c-explcard');
+    try {
+      var r = await s(prompt, { signal: cCtl.signal, cache: false, onText: function (u) { card.hidden = false; out.innerHTML = md(u.text); say(st, 'يكتب الشرح…', ''); } });
+      l.explain = { text: r.text }; saveC(); out.innerHTML = md(r.text);
+      say(st, r.truncated ? 'قُطع الشرح لطوله. علّم نقاطًا أقل وأعد الطلب.' : 'تم. يمكنك الآن اختبار نفسك على هذه النقاط.', r.truncated ? '' : 'ok');
+    } catch (e) {
+      if (e && e.text) { out.innerHTML = md(e.text); card.hidden = false; }
+      var m = errCopy(e); say(st, m, m ? 'err' : '');
+    } finally { cv.busy = false; cCtl = null; go.disabled = false; stop.hidden = true; }
+  }
+
+  async function cWeakSummary() {
+    var c = curC(), st = $('#c-wstat'), go = $('#c-wsum'), stop = $('#c-wstop');
+    var list = (c.weak || []).slice().sort(function (a, b) { return b.wrong - a.wrong; }).slice(0, 40);
+    if (!list.length) { say(st, 'لا توجد أخطاء مسجّلة بعد.', 'err'); return; }
+    var s = await needSample(st); if (!s) return;
+    cCtl = new AbortController(); go.disabled = true; stop.hidden = false; say(st, 'جارٍ التحضير…', '');
+    var prompt = 'أنت معلّم يجهّز طالبًا في الأيام الأخيرة قبل اختبار مادة «' + c.name + '». هذه قائمة الأسئلة التي أخطأ فيها أثناء المذاكرة (والعدد = مرات الخطأ، و«تحسّن» تعني أنه أجابها صحيحة مرتين لاحقًا).\n' +
+      'اكتب ملخصًا نهائيًا لأخطائه بهذه العناوين بالترتيب (بصيغة ## عنوان):\n' +
+      '## القوانين والقواعد التي أخطأت فيها\n(لكل قانون: **اسمه وصيغته**، ثم متى يُستخدم، ثم الخطأ الشائع فيه. وإن لم يوجد قانون في الأخطاء فاكتب جملة واحدة بذلك.)\n' +
+      '## المفاهيم التي تحتاج مراجعة\n(لكل مفهوم: **اسمه** وتصحيح الفهم في جملتين.)\n' +
+      '## أنماط أخطائك\n(نقطتان أو ثلاث: ما الذي تكرر، كالخلط بين مفهومين أو نسيان شرط.)\n' +
+      '## خطة آخر مراجعة\n(خمس نقاط قصيرة مرتّبة بحسب الأولوية.)\n' +
+      'اعتمد على القائمة فقط. اكتب بلغة المادة (العربية إن لم تتضح) والتزم بلغة واحدة، ويجوز المصطلح العلمي بين قوسين. لا تستخدم LaTeX. ابدأ مباشرة دون مقدمة.\n\nالأخطاء:\n' +
+      list.map(function (w, i) { return (i + 1) + '. [' + (w.topic || '') + (w.law ? ' | قانون: ' + w.law : '') + '] ' + w.q.q + ' => الصحيح: ' + (w.q.type === 'short' ? w.q.answer : w.q.options[w.q.answer]) + (w.q.explain ? ' (' + w.q.explain + ')' : '') + ' — العدد: ' + w.wrong + (w.streak >= 2 ? ' — تحسّن' : ''); }).join('\n');
+    var out = $('#c-wout'), card = $('#c-woutcard');
+    try {
+      var r = await s(prompt, { signal: cCtl.signal, cache: false, onText: function (u) { card.hidden = false; out.innerHTML = md(u.text); say(st, 'يكتب الملخص…', ''); } });
+      c.wsum = r.text; saveC(); out.innerHTML = md(r.text);
+      say(st, r.truncated ? 'قُطع الملخص لطوله.' : 'تم.', r.truncated ? '' : 'ok');
+      if (!r.truncated) card.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } catch (e) {
+      if (e && e.text) { out.innerHTML = md(e.text); card.hidden = false; }
+      var m = errCopy(e); say(st, m, m ? 'err' : '');
+    } finally { cCtl = null; go.disabled = false; stop.hidden = true; }
+  }
+
+  async function cMakePlan() {
+    var c = curC(), st = $('#c-pstat'), go = $('#c-plan'), stop = $('#c-pstop');
+    var d = daysLeft(c);
+    if (d == null || d <= 0) { say(st, 'موعد الاختبار اليوم أو فات. عدّل التاريخ من زر «تعديل».', 'err'); return; }
+    var pend = c.lectures.filter(function (l) { return !l.done; });
+    if (!pend.length) { say(st, 'ارفع محاضرات لم تنجزها أولًا.', 'err'); return; }
+    var miss = pend.filter(function (l) { return !l.analysis; });
+    if (miss.length && !(await needSample(st))) return;
+    cCtl = new AbortController(); go.disabled = true; stop.hidden = false;
+    try {
+      for (var i = 0; i < miss.length; i++) {
+        say(st, 'يقرأ المحاضرة ' + (i + 1) + ' من ' + miss.length + ': ' + miss[i].name + '…', '');
+        await cAnalyse(miss[i], cCtl.signal);
+      }
+    } catch (e) {
+      var m = errCopy(e); say(st, m || 'توقّف.', m ? 'err' : '');
+      go.disabled = false; stop.hidden = true; cCtl = null;
+      if (i > 0) cRenderKeep(st);
+      return;
+    }
+    /* units: every important section of every unfinished lecture, in lecture order */
+    var units = [];
+    pend.forEach(function (l) { l.analysis.sections.forEach(function (x, k) { units.push({ lec: l.id, k: k }); }); });
+    var review = d >= 10 ? 2 : d >= 4 ? 1 : 0, study = Math.max(1, d - review);
+    var base = Math.floor(units.length / study), extra = units.length % study, pos = 0, days = [];
+    var t0 = cToday();
+    for (var di = 0; di < d; di++) {
+      var dt = new Date(t0); dt.setDate(dt.getDate() + di);
+      var day = { d: cIso(dt), items: [] };
+      if (di < study) {
+        var cnt = base + (di < extra ? 1 : 0), group = null;
+        for (var u = 0; u < cnt; u++, pos++) {
+          var un = units[pos];
+          if (group && group.lec === un.lec && group.to === un.k - 1) group.to = un.k;
+          else { group = { lec: un.lec, from: un.k, to: un.k }; day.items.push(group); }
+        }
+        if (!cnt) day.review = 'يوم خفيف: راجع نقاط ضعفك واختبر نفسك.';
+      } else day.review = di === d - 1 ? 'المراجعة الأخيرة: الملخص النهائي لأخطائك، واختبار على نقاط ضعفك.' : 'مراجعة: اختبر نفسك على كل المحاضرات ونقاط ضعفك.';
+      days.push(day);
+    }
+    c.plan = { made: cIso(t0), days: days }; saveC();
+    cCtl = null; cv.busy = false; cRender();
+    var s2 = c.lectures.length ? cStats(c) : null;
+    say($('#c-pstat'), 'تم التوزيع على ' + d + (d === 1 ? ' يوم' : ' أيام') + (s2 && s2.notUp ? '. تنبيه: ' + s2.notUp + ' محاضرات لم تُرفع بعد، ارفعها ثم أعد التوزيع.' : '.'), s2 && s2.notUp ? '' : 'ok');
+    var pl = $('.days'); if (pl) pl.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+  function cRenderKeep(st) { var t = st.textContent, k = st.dataset.kind; cRender(); var n = $('#c-pstat'); if (n) say(n, t, k); }
+
+  /* ---------- رفع الملفات ---------- */
+  async function cUpload(files) {
+    var c = curC(); if (!c || !files.length) return;
+    var bad = [], added = 0, dup = 0, nofile = 0;
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i], st = $('#c-ustat'); if (st) say(st, 'تُقرأ ' + f.name + '…', '');
+      try {
+        var r = await readFile(f);
+        if (r.kind !== 'text') throw new Error('unsupported');
+        var nm = f.name.replace(/\.[^.]+$/, '');
+        if (c.lectures.some(function (x) { return x.name === nm; })) { dup++; continue; }
+        var l = { id: uid(), name: nm, text: r.text, done: false, marks: [], analysis: null, scores: [], file: false };
+        if (/\.pdf$/i.test(f.name) && cDb) { l.file = await idbPut(cDb, 'f:' + l.id, f); if (!l.file) nofile++; }
+        c.lectures.push(l); added++;
+      } catch (e) { bad.push(f.name + (e.message === 'empty' ? ' (لا يوجد نص قابل للقراءة، ربما الملف صور ممسوحة)' : '')); }
+    }
+    c.lectures.sort(function (a, b) { return a.name.localeCompare(b.name, undefined, { numeric: true }); });
+    saveC(); cRender();
+    var msg = (added ? 'أُضيفت ' + added + (added === 1 ? ' محاضرة.' : ' محاضرات.') : '') + (dup ? ' ' + dup + ' موجودة مسبقًا.' : '') + (nofile ? ' تعذّر حفظ نسخة الملف للقراءة (مساحة التخزين ممتلئة).' : '') + (bad.length ? ' تعذّرت: ' + bad.join('، ') : '');
+    say($('#c-ustat'), msg.trim() || 'لم تُضف ملفات.', bad.length || !added || nofile ? 'err' : 'ok');
+  }
+
+  /* ---------- الأحداث ---------- */
+  function cMarkTitle(l, id) {
+    var a = l.analysis; if (!a) return null;
+    if (id[0] === 's') { var x = a.sections[+id.slice(1)]; return x && { id: id, kind: 'sec', title: x.title, text: (x.summary + ' ' + x.points.join('؛ ')).trim() }; }
+    if (id[0] === 'c') { var y = a.concepts[+id.slice(1)]; return y && { id: id, kind: 'con', title: y.name, text: y.text }; }
+    return null;
+  }
+  function cRefreshMarkbar(l) {
+    var old = $('#c-markbar'); if (!old) return;
+    var st = $('#c-estat') ? $('#c-estat').textContent : '';
+    old.outerHTML = cMarkBar(l);
+    if ($('#c-estat')) $('#c-estat').textContent = st;
+  }
+  async function cRunAnalyse(l) {
+    if (cv.busy) return; cv.busy = true; cCtl = new AbortController(); cRender();
+    try { await cAnalyse(l, cCtl.signal); cv.busy = false; cCtl = null; cRender(); }
+    catch (e) {
+      cv.busy = false; cCtl = null; cRender();
+      var m = errCopy(e), st = $('#c-astat'); if (st && m) say(st, m, 'err');
+    }
+  }
+  function cDropLecture(c, lid) {
+    idbDel(cDb, 'f:' + lid); idbDel(cDb, 'a:' + lid);
+    c.lectures = c.lectures.filter(function (x) { return x.id !== lid; });
+  }
+  var cRoot = $('#c-root');
+  cRoot.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.id === 'c-file') { var fl = Array.prototype.slice.call(t.files); t.value = ''; cUpload(fl); }
+    else if (t.closest && t.closest('.cq')) cqCount();
+  });
+  cRoot.addEventListener('input', function (e) { if (e.target.closest && e.target.closest('.cq')) cqCount(); });
+  ['dragenter', 'dragover'].forEach(function (ev) { cRoot.addEventListener(ev, function (e) { var d = e.target.closest && e.target.closest('#c-drop'); if (d) { e.preventDefault(); d.classList.add('over'); } }); });
+  ['dragleave', 'drop'].forEach(function (ev) { cRoot.addEventListener(ev, function (e) { var d = e.target.closest && e.target.closest('#c-drop'); if (d) { e.preventDefault(); d.classList.remove('over'); if (ev === 'drop' && e.dataTransfer && e.dataTransfer.files.length) cUpload(Array.prototype.slice.call(e.dataTransfer.files)); } }); });
+
+  function openFolder(id) { C.active = id; cv.mode = 'folder'; cv.tab = 'files'; cv.confirm = null; cv.lecId = null; saveC(); cRender(); window.scrollTo(0, 0); }
+  cRoot.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-act]'); if (!b) return;
+    var act = b.dataset.act, c = curC(), l = null, lid = b.dataset.lid;
+    if (c) l = lid ? c.lectures.filter(function (x) { return x.id === lid; })[0] : curL(c);
+    switch (act) {
+      case 'home': cv.mode = 'home'; cv.lecId = null; cv.confirm = null; cRender(); window.scrollTo(0, 0); break;
+      case 'openfolder': openFolder(b.dataset.cid || (c && c.id)); break;
+      case 'newcourse': cv.mode = 'form'; cv.edit = false; cRender(); window.scrollTo(0, 0); break;
+      case 'editcourse': cv.mode = 'form'; cv.edit = true; cRender(); break;
+      case 'cancelform': cv.mode = c && cv.edit ? 'folder' : 'home'; cRender(); break;
+      case 'saveform': {
+        var nm = $('#cf-name').value.trim(), ex = $('#cf-exam').value, tot = Math.max(1, Math.min(80, parseInt($('#cf-total').value, 10) || 0)), pr = Math.max(0, Math.min(80, parseInt($('#cf-prior').value, 10) || 0)), st = $('#cf-status');
+        if (!nm) { say(st, 'اكتب اسم المادة.', 'err'); return; }
+        if (!ex) { say(st, 'اختر موعد الاختبار.', 'err'); return; }
+        if (pr > tot) { say(st, 'عدد ما أنجزته أكبر من عدد المحاضرات المقررة.', 'err'); return; }
+        if (cv.edit && c) { c.name = nm; c.exam = ex; c.total = tot; c.prior = pr; c.plan = null; cv.mode = 'folder'; }
+        else { var n = { id: uid(), name: nm, exam: ex, total: tot, prior: pr, lectures: [], weak: [], plan: null }; C.courses.push(n); C.active = n.id; cv.mode = 'folder'; cv.tab = 'files'; }
+        cv.edit = false; saveC(); cRender(); window.scrollTo(0, 0); break;
+      }
+      case 'resume': { var lc = C.last && C.courses.filter(function (x) { return x.id === C.last.cid; })[0]; var ll = lc && lc.lectures.filter(function (x) { return x.id === C.last.lid; })[0]; if (ll) { C.active = lc.id; cv.mode = ll.file ? 'read' : 'lec'; cv.lecId = ll.id; rd.tool = 'view'; cRender(); window.scrollTo(0, 0); if (ll.file) rdLoad(ll); else if (!ll.analysis) cRunAnalyse(ll); } break; }
+      case 'tab': cv.tab = b.dataset.tab; cRender(); break;
+      case 'delcourse': cv.confirm = 'course'; cRender(); break;
+      case 'nodel': cv.confirm = null; cRender(); break;
+      case 'delcourse2':
+        c.lectures.forEach(function (x) { idbDel(cDb, 'f:' + x.id); idbDel(cDb, 'a:' + x.id); });
+        C.courses = C.courses.filter(function (x) { return x.id !== c.id; }); C.active = null; cv.confirm = null; cv.mode = 'home'; saveC(); cRender(); break;
+      case 'rm': cv.confirm = lid; cRender(); break;
+      case 'rm2': cDropLecture(c, lid); c.plan = null; cv.confirm = null; saveC(); cRender(); break;
+      case 'noask': cv.askQuiz = null; cRender(); break;
+      case 'done': if (!l) break; l.done = !l.done; cv.askQuiz = l.done && cv.mode === 'folder' ? l.id : null; saveC(); cRender(); break;
+      case 'open': if (!l) break; C.last = { cid: c.id, lid: l.id }; saveC(); cv.mode = 'lec'; cv.lecId = l.id; cRender(); window.scrollTo(0, 0); if (!l.analysis) cRunAnalyse(l); break;
+      case 'read': if (!l) break; C.last = { cid: c.id, lid: l.id }; saveC(); cv.mode = 'read'; cv.lecId = l.id; rd.tool = 'view'; cRender(); window.scrollTo(0, 0); rdLoad(l); break;
+      case 'analyse': if (l) cRunAnalyse(l); break;
+      case 'mark': {
+        if (!l) break;
+        var mid = b.dataset.mid, i = -1; l.marks.forEach(function (m, k) { if (m.id === mid) i = k; });
+        if (i >= 0) l.marks.splice(i, 1); else { var mk = cMarkTitle(l, mid); if (mk) l.marks.push(mk); }
+        saveC();
+        var on = i < 0; b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '✓ معلَّمة' : 'لم أفهم هذا';
+        b.closest('.sc,.cc').classList.toggle('marked', on);
+        cRefreshMarkbar(l); break;
+      }
+      case 'unmark': if (!l) break; l.marks = l.marks.filter(function (m) { return m.id !== b.dataset.mid; }); saveC(); cRender(); break;
+      case 'addmark': { if (!l) break; var tx = $('#c-custom').value.trim(); if (!tx) break; l.marks.push({ id: 'x' + uid(), kind: 'custom', title: tx.slice(0, 200), text: '' }); saveC(); cRefreshMarkbar(l); break; }
+      case 'explain': if (l) cExplain(l); break;
+      case 'quiz': cStartQuiz(b.dataset.mode, +b.dataset.n, lid || cv.lecId); break;
+      case 'qfinish': cFinishQuiz(); break;
+      case 'qback': { var bk = cv.back || { mode: 'folder' }; cq = null; cv.mode = bk.mode === 'lec' && cv.lecId && curL(c) ? 'lec' : 'folder'; cv.tab = bk.tab || cv.tab; cRender(); window.scrollTo(0, 0); break; }
+      case 'qagain': if (cq) { var m0 = cq.mode, lid0 = cq.lecId, n0 = cq.qs.length > 8 ? 12 : 5, bk0 = cv.back; cq = null; cv.mode = bk0 ? bk0.mode : 'folder'; cRender(); cStartQuiz(m0, n0, lid0); } break;
+      case 'plan': cMakePlan(); break;
+      case 'wsum': cWeakSummary(); break;
+      case 'wcopy': copyText(c.wsum || '', b, $('#c-wout')); break;
+      case 'stop': if (cCtl) cCtl.abort(); break;
+      /* القارئ */
+      case 'tool': rd.tool = b.dataset.tool; rd.cur = null; $$('#rtools [data-tool]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); var ov = $('#ro'); if (ov) ov.classList.toggle('off', rd.tool === 'view'); break;
+      case 'color': rd.color = b.dataset.c; $$('#rtools .sw').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); if (rd.tool === 'view' || rd.tool === 'er') { rd.tool = 'pen'; $$('#rtools [data-tool]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.tool === 'pen')); }); $('#ro').classList.remove('off'); } break;
+      case 'undo': if (rd.ann[rd.page] && rd.ann[rd.page].length) { rd.ann[rd.page].pop(); rdDraw(); rdSave(); } break;
+      case 'clrpage':
+        if (!rd.clr) { rd.clr = true; b.textContent = 'تأكيد المسح'; setTimeout(function () { rd.clr = false; if (b.isConnected) b.textContent = 'مسح الصفحة'; }, 2500); }
+        else { rd.clr = false; b.textContent = 'مسح الصفحة'; rd.ann[rd.page] = []; rdDraw(); rdSave(); }
+        break;
+      case 'zin': rd.z = Math.min(3, rd.z + .5); rdRender(); break;
+      case 'zout': rd.z = Math.max(1, rd.z - .5); rdRender(); break;
+      case 'rnext': rdGo(rd.page + 1); break;
+      case 'rprev': rdGo(rd.page - 1); break;
+    }
+  });
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest('[data-go="home"]');
+    if (g && !$('#v-home').hidden && cv.mode !== 'home' && cv.mode !== 'quiz') { cv.mode = 'home'; cv.lecId = null; cRender(); }
+    var ch = e.target.closest('.echip.on');
+    if (ch && ch.dataset.cid) { show('home'); openFolder(ch.dataset.cid); }
+  });
+  loadC();
+
+
+  /* ---------- boot ---------- */
+  var h0 = (location.hash || '').replace('#', '');
+  show(['tutor', 'homework', 'summary', 'quiz'].indexOf(h0) >= 0 ? h0 : 'home');
+  window.scrollTo(0, 0);
+})();
+</script>
+</body>
+</html>
